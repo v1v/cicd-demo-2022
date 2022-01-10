@@ -1,17 +1,20 @@
 import time
+import os
 import urllib.request
 
    
 def test_default():
-    req = urllib.request.Request('http://localhost:8080/hello')
+    url = os.getenv("HELLO_WORLD_URL")
+    req = urllib.request.Request(url)
     with urllib.request.urlopen(req) as response:
        the_page = response.read().decode("utf8")
     assert the_page.find("Hello World!") != -1
     pass
 
 def test_name():
-    req = urllib.request.Request('http://localhost:8080/hello?name=foo')
+    url = os.getenv("HELLO_WORLD_URL")
+    req = urllib.request.Request("{}?name=foo".format(url))
     with urllib.request.urlopen(req) as response:
        the_page = response.read().decode("utf8")
-    assert the_page.find("Hello bar!") != -1
+    assert the_page.find("Hello foo!") != -1
     pass

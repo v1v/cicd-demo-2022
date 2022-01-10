@@ -7,6 +7,7 @@ OTEL_EXPORTER_OTLP_INSECURE ?= True
 OTEL_EXPORTER_OTLP_HEADERS ?=
 TRACEPARENT ?=
 
+HELLO_WORLD_URL ?= http://localhost:8080/hello
 VENV ?= .venv
 PYTHON ?= python3
 PIP ?= pip3
@@ -49,6 +50,7 @@ virtualenv:
 .PHONY: test
 test: virtualenv
 	source $(VENV)/bin/activate;\
+	HELLO_WORLD_URL=$(HELLO_WORLD_URL) \
 	pytest --capture=no \
 		--junitxml $(CURDIR)/junit-smoke-tests.xml \
 		test_smoke.py;
