@@ -8,6 +8,7 @@ OTEL_EXPORTER_OTLP_HEADERS ?=
 TRACEPARENT ?=
 
 HELLO_WORLD_URL ?= http://localhost:8080/hello
+HELLO_WORLD_IMAGE ?= docker.io/library/demo:0.0.1-SNAPSHOT
 VENV ?= .venv
 PYTHON ?= python3
 PIP ?= pip3
@@ -49,11 +50,14 @@ virtualenv:
 ## @help:test:Run the test.
 .PHONY: test
 test: virtualenv
+	HELLO_WORLD_IMAGE=$(HELLO_WORLD_IMAGE) docker-compose up -d
+	sleep 30
 	source $(VENV)/bin/activate;\
 	HELLO_WORLD_URL=$(HELLO_WORLD_URL) \
 	pytest --capture=no \
 		--junitxml $(CURDIR)/junit-smoke-tests.xml \
 		test_smoke.py;
+	docker-compose down
 
 ## @help:clean:Remove Python file artifacts.
 .PHONY: clean
