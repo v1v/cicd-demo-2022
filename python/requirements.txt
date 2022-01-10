@@ -1,0 +1,1 @@
+pytest-otel>=0.0.4
