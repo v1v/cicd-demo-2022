@@ -4,6 +4,7 @@ configuration-as-code
 docker-workflow
 git
 filesystem_scm
+hashicorp-vault-plugin
 jdk-tool
 job-dsl
 opentelemetry

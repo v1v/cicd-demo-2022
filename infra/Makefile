@@ -1,5 +1,7 @@
 .DEFAULT_GOAL := start
 
+VAULT_TOKEN ?= $(shell cat $${HOME}/.vault-token)
+VAULT_ADDR  ?= $(shell vault read -field=vault_addr secret/jcasc/localhost/base )
 export OTELCOL_IMG?=otel/opentelemetry-collector-contrib-dev:latest
 export ELASTIC_STACK_VERSION?=7.16.2
 
@@ -9,7 +11,10 @@ build:
 
 .PHONY: start
 start:
-	@env docker-compose --file docker-compose.yml up --detach --no-recreate
+	@env \
+		VAULT_TOKEN=${VAULT_TOKEN} \
+		VAULT_ADDR=${VAULT_ADDR} \
+		docker-compose --file docker-compose.yml up --detach --no-recreate
 
 .PHONY: stop
 stop:

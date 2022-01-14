@@ -35,6 +35,18 @@ unclassified:
     - jaeger:
         jaegerBaseUrl: "http://localhost:16686"
         name: "Jaeger"
+
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - usernamePassword:
+              description: GitHub user @${github_username} User + Personal Access Token
+              id: GitHubUserAndToken
+              password: ${github_personal_access_token}
+              scope: GLOBAL
+              username: ${github_username}
+
 jobs:
   - file: "/var/jenkins_home/config/ansible.dsl"
   - file: "/var/jenkins_home/config/maven.dsl"
