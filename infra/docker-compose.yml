@@ -7,7 +7,7 @@ services:
       CASC_JENKINS_CONFIG: /var/jenkins_home/jcasc
       CASC_VAULT_ENGINE_VERSION: "1"
       CASC_VAULT_PATHS: |
-        secret/jcasc/localhost/base,secret/jcasc/localhost/apm-ci
+        secret/jcasc/localhost/base,secret/jcasc/localhost/apm-ci,secret/observability-team/ci/elastic-observability-dockerhub-token
       CASC_VAULT_TOKEN: ${VAULT_TOKEN}
       CASC_VAULT_URL: ${VAULT_ADDR}
       JAVA_OPTS: >-

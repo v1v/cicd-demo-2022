@@ -46,6 +46,12 @@ credentials:
               password: ${github_personal_access_token}
               scope: GLOBAL
               username: ${github_username}
+          - usernamePassword:
+              description: Docker user @${docker_user} User + Token
+              id: DockerUserAndToken
+              password: ${docker_token}
+              scope: GLOBAL
+              username: ${docker_user}
 
 jobs:
   - file: "/var/jenkins_home/config/ansible.dsl"
