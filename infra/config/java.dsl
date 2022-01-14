@@ -8,7 +8,7 @@ DSL = """pipeline {
   stages {
     stage('checkout') {
       steps {
-        git('https://github.com/v1v/demo-fosdem-2022.git')
+        git(url: 'https://github.com/v1v/demo-fosdem-2022.git', branch: 'main')
       }
     }
     stage('compile') {
