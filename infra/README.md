@@ -22,6 +22,7 @@ This is an example of distributed tracing with Jenkins based on:
 - Docker Compose >= 1.25.0
 - Java >= 8
 - *nix based (x86_64)
+- Vault for the credentials
 
 ## Run this
 
