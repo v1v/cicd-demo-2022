@@ -2,3 +2,4 @@
 agent.jar
 local.log
 local.pid
+.venv

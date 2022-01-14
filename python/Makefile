@@ -7,8 +7,8 @@ OTEL_EXPORTER_OTLP_INSECURE ?= True
 OTEL_EXPORTER_OTLP_HEADERS ?=
 TRACEPARENT ?=
 
-HELLO_WORLD_URL ?= http://localhost:8080/hello
-HELLO_WORLD_IMAGE ?= docker.io/library/demo:0.0.1-SNAPSHOT
+HELLO_WORLD_URL ?= http://localhost:28080/hello
+HELLO_WORLD_IMAGE ?= docker.io/elasticobservability/demo-fosdem:0.0.1-SNAPSHOT
 VENV ?= .venv
 PYTHON ?= python3
 PIP ?= pip3
@@ -67,4 +67,3 @@ clean:
 	@find . -type d -name "__pycache__" -delete
 	@find . -name '*~' -delete
 	-@rm -fr junit-*.xml $(VENV) .pytest_cache otel-traces-file-output.json
-	

@@ -1,18 +1,18 @@
-NAME = 'ansible-job'
+NAME = 'pytest-job'
 DSL = """pipeline {
   agent any
+  environment {
+    HOME = "\${env.WORKSPACE}"
+  }
   stages {
     stage('checkout') {
       steps {
         git(url: 'https://github.com/v1v/demo-fosdem-2022.git', branch: 'main')
       }
     }
-    stage('run-ansible') {
+    stage('smoke-test') {
       steps {
-        dir('ansible') {
-          sh(label: 'make prepare', script: 'make prepare')
-          sh(label: 'run ansible', script: 'make run')
-        }
+        sh(label: 'Run Python smoke tests', script: 'make -C python test')
       }
     }
   }
