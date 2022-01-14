@@ -1,6 +1,10 @@
 NAME = 'pytest-job'
 DSL = """pipeline {
   agent any
+  environment {
+    HOME = "${env.WORKSPACE}"
+    GITHUB_CREDS = credentials('GitHubUserAndToken')
+  }
   stages {
     stage('checkout') {
       steps {
@@ -9,13 +13,7 @@ DSL = """pipeline {
     }
     stage('smoke-test') {
       steps {
-        script {
-          docker.image('python:3').inside('--network infra_default') {
-            withEnv(["HOME=\${env.WORKSPACE}"]) {
-              sh(label: 'Run Python smoke tests', script: 'make -C python test')
-            }
-          }
-        }
+        sh(label: 'Run Python smoke tests', script: 'make -C python test')
       }
     }
   }
