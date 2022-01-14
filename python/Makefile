@@ -47,17 +47,22 @@ virtualenv:
 	source $(VENV)/bin/activate;\
 	$(PIP) install -q -r requirements.txt;
 
-## @help:test:Run the test.
-.PHONY: test
-test: virtualenv
+## @help:test:Run the test with the docker-compose.
+.PHONY: test-with-docker-compose
+test-with-docker-compose: virtualenv
 	HELLO_WORLD_IMAGE=$(HELLO_WORLD_IMAGE) docker-compose up -d
 	sleep 30
+	$(MAKE) test
+	docker-compose down
+
+## @help:test:Run the test in the existing environment.
+.PHONY: test
+test: virtualenv
 	source $(VENV)/bin/activate;\
 	HELLO_WORLD_URL=$(HELLO_WORLD_URL) \
 	pytest --capture=no \
 		--junitxml $(CURDIR)/junit-smoke-tests.xml \
-		test_smoke.py;
-	docker-compose down
+		test_smoke.py
 
 ## @help:clean:Remove Python file artifacts.
 .PHONY: clean
