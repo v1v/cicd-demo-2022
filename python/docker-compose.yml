@@ -5,7 +5,7 @@ services:
   hello:
     image: ${HELLO_WORLD_IMAGE}
     ports:
-      - "8080:8080"
+      - "18080:8080"
     networks:
       - default
 

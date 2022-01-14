@@ -7,7 +7,7 @@ OTEL_EXPORTER_OTLP_INSECURE ?= True
 OTEL_EXPORTER_OTLP_HEADERS ?=
 TRACEPARENT ?=
 
-HELLO_WORLD_URL ?= http://localhost:8080/hello
+HELLO_WORLD_URL ?= http://localhost:18080/hello
 HELLO_WORLD_IMAGE ?= docker.io/elasticobservability/demo-fosdem:0.0.1-SNAPSHOT
 VENV ?= .venv
 PYTHON ?= python3

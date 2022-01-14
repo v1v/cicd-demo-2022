@@ -4,7 +4,7 @@
   connection: local
   vars:
     default_container_name: docker-demo
-    default_container_image: docker.io/library/demo:0.0.1-SNAPSHOT
+    default_container_image: docker.io/elasticobservability/demo-fosdem:0.0.1-SNAPSHOT
 
   tasks:
     - name: Pull default Docker image
