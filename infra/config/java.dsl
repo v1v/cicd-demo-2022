@@ -2,7 +2,7 @@ NAME = 'java-job'
 DSL = """pipeline {
   agent any
   environment {
-    HOME = "${env.WORKSPACE}"
+    HOME = "\${env.WORKSPACE}"
     GITHUB_CREDS = credentials('GitHubUserAndToken')
   }
   stages {
