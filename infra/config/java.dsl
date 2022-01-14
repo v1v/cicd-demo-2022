@@ -2,7 +2,6 @@ NAME = 'java-job'
 DSL = """pipeline {
   agent any
   environment {
-    HOME = "\${env.WORKSPACE}"
     DOCKERHUB_CREDS = credentials('DockerUserAndToken')
   }
   stages {
