@@ -36,6 +36,13 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
     </plugins>
+    <extensions>
+      <extension>
+        <groupId>io.opentelemetry.contrib</groupId>
+        <artifactId>opentelemetry-maven-extension</artifactId>
+        <version>1.9.0-alpha</version>
+      </extension>
+    </extensions>
   </build>
 
 </project>
