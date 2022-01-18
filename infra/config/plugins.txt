@@ -7,7 +7,7 @@ filesystem_scm
 hashicorp-vault-plugin
 jdk-tool
 job-dsl
-opentelemetry
+opentelemetry::https://repo.jenkins-ci.org/incrementals/io/jenkins/plugins/opentelemetry/1.2.1-rc503.3e1a12e11bad/opentelemetry-1.2.1-rc503.3e1a12e11bad.hpi
 pipeline-model-definition
 swarm
 workflow-aggregator
