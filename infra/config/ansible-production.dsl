@@ -9,7 +9,6 @@ DSL = """pipeline {
     }
     stage('run-ansible') {
       steps {
-      steps {
         withCredentials([usernamePassword(
                         credentialsId: 'docker.io',
                         passwordVariable: 'CONTAINER_REGISTRY_PASSWORD',
