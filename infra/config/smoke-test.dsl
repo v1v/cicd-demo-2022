@@ -14,6 +14,7 @@ DSL = """pipeline {
     }
     stage('smoke-test') {
       steps {
+        sh(label: 'Prepare venv', script: 'make -C python prepare')
         sh(label: 'Run Python smoke tests', script: 'make -C python test')
       }
     }
