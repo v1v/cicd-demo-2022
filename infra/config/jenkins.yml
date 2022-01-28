@@ -11,7 +11,7 @@ jenkins:
   scmCheckoutRetryCount: 2
   nodes:
   - permanent:
-      labelString: "local"
+      labelString: "local linux"
       launcher:
         jnlp:
           workDirSettings:
@@ -52,6 +52,12 @@ credentials:
               password: ${docker_token}
               scope: GLOBAL
               username: ${docker_user}
+          - usernamePassword:
+              description: Docker user @${docker_user} User + Token
+              id: docker.io
+              password: ${docker_token}
+              scope: GLOBAL
+              username: ${docker_user}
           - string:
               description: snyk.io token.
               id: snyk.io
@@ -63,3 +69,4 @@ jobs:
   - file: "/var/jenkins_home/config/cd.dsl"
   - file: "/var/jenkins_home/config/pytest.dsl"
   - file: "/var/jenkins_home/config/java.dsl"
+  - file: "/var/jenkins_home/config/ecommerce-antifraud.dsl"
