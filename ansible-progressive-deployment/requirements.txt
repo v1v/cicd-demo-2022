@@ -1,0 +1,5 @@
+ansible
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-exporter-otlp
+docker
