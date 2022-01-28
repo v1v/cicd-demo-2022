@@ -23,6 +23,9 @@ virtualenv:
 prepare: virtualenv
 	source $(VENV)/bin/activate;\
 		echo "ansible-galaxy collection install community.general"
+	echo "Use https://github.com/ansible-collections/community.general/pull/4104"
+	mkdir -p callback_plugins
+	curl -s https://raw.githubusercontent.com/ansible-collections/community.general/af15b205158143cc6da494aab3e16e0a5eef92df/plugins/callback/opentelemetry.py > callback_plugins/opentelemetry.py
 
 .PHONY: progressive-deployment
 progressive-deployment:
