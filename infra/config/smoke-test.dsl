@@ -4,6 +4,7 @@ DSL = """pipeline {
   environment {
     HOME = "\${env.WORKSPACE}"
     SMOKE_TEST_URL = "http://localhost:28080/ecommerce"
+    OTEL_SERVICE_NAME = "smoke-test"
   }
   stages {
     stage('checkout') {
