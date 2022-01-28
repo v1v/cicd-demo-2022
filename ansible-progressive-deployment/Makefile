@@ -22,7 +22,7 @@ virtualenv:
 .PHONY: prepare
 prepare: virtualenv
 	source $(VENV)/bin/activate;\
-		ansible-galaxy collection install community.general
+		echo "ansible-galaxy collection install community.general"
 
 .PHONY: progressive-deployment
 progressive-deployment:
