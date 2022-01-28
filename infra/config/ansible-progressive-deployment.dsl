@@ -9,9 +9,14 @@ DSL = """pipeline {
     }
     stage('run-ansible') {
       steps {
-        dir('ansible-progressive-deployment') {
-          sh(label: 'make prepare', script: 'make prepare')
-          sh(label: 'run ansible', script: 'make progressive-deployment')
+        withCredentials([usernamePassword(
+                        credentialsId: 'docker.io',
+                        passwordVariable: 'CONTAINER_REGISTRY_PASSWORD',
+                        usernameVariable: 'CONTAINER_REGISTRY_USERNAME')]) {
+          dir('ansible-progressive-deployment') {
+            sh(label: 'make prepare', script: 'make prepare')
+            sh(label: 'run ansible', script: 'make progressive-deployment')
+          }
         }
       }
     }

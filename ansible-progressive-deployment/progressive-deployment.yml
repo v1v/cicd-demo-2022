@@ -7,6 +7,12 @@
     default_container_image: docker.io/v1v1v/anti-fraud:latest
 
   tasks:
+    - name: Log into DockerHub
+      docker_login:
+        username: "{{ docker_user }}"
+        password: "{{ docker_password }}"
+        registry_url: https://index.docker.io/v1/
+
     - name: Pull default Docker image
       docker_image:
         name: "{{ default_container_image }}"

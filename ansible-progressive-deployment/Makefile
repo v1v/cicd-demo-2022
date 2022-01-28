@@ -1,6 +1,8 @@
 .DEFAULT_GOAL := run
 
 DOCKER_IMAGE ?= docker.io/v1v1v/anti-fraud:latest
+CONTAINER_REGISTRY_USERNAME ?=
+CONTAINER_REGISTRY_PASSWORD ?=
 OTEL_EXPORTER_OTLP_ENDPOINT ?= localhost:4317
 OTEL_EXPORTER_OTLP_INSECURE ?= true
 
@@ -25,12 +27,16 @@ prepare: virtualenv
 .PHONY: progressive-deployment
 progressive-deployment:
 	source $(VENV)/bin/activate;\
-		ansible-playbook progressive-deployment.yml --extra-vars "default_container_image=$(DOCKER_IMAGE)"
+		ansible-playbook \
+			progressive-deployment.yml \
+			--extra-vars "default_container_image=$(DOCKER_IMAGE) docker_user=$(CONTAINER_REGISTRY_USERNAME) docker_password=$(CONTAINER_REGISTRY_PASSWORD)"
 
 .PHONY: production
 production:
 	source $(VENV)/bin/activate;\
-		ansible-playbook production.yml --extra-vars "default_container_image=$(DOCKER_IMAGE)"
+		ansible-playbook \
+			production.yml \
+			--extra-vars "default_container_image=$(DOCKER_IMAGE) docker_user=$(CONTAINER_REGISTRY_USERNAME) docker_password=$(CONTAINER_REGISTRY_PASSWORD)"
 
 .PHONY: run-with-otel
 run-with-otel:
