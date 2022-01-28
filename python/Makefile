@@ -61,6 +61,7 @@ test: virtualenv
 	source $(VENV)/bin/activate;\
 	SMOKE_TEST_URL=$(SMOKE_TEST_URL) \
 	pytest --capture=no \
+		--otel-service-name $(OTEL_SERVICE_NAME) \
 		--junitxml $(CURDIR)/junit-smoke-tests.xml \
 		test_smoke.py
 
