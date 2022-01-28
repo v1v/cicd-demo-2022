@@ -73,3 +73,4 @@ jobs:
   - file: "/var/jenkins_home/config/ansible-production.dsl"
   - file: "/var/jenkins_home/config/ansible-progressive-deployment.dsl"
   - file: "/var/jenkins_home/config/progressive-deployment.dsl"
+  - file: "/var/jenkins_home/config/smoke-test.dsl"

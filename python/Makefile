@@ -7,7 +7,7 @@ OTEL_EXPORTER_OTLP_INSECURE ?= True
 OTEL_EXPORTER_OTLP_HEADERS ?=
 TRACEPARENT ?=
 
-HELLO_WORLD_URL ?= http://localhost:28080/hello
+SMOKE_TEST_URL ?= http://localhost:28080/hello
 HELLO_WORLD_IMAGE ?= docker.io/elasticobservability/demo-fosdem:0.0.1-SNAPSHOT
 VENV ?= .venv
 PYTHON ?= python3
@@ -59,7 +59,7 @@ test-with-docker-compose: virtualenv
 .PHONY: test
 test: virtualenv
 	source $(VENV)/bin/activate;\
-	HELLO_WORLD_URL=$(HELLO_WORLD_URL) \
+	SMOKE_TEST_URL=$(SMOKE_TEST_URL) \
 	pytest --capture=no \
 		--junitxml $(CURDIR)/junit-smoke-tests.xml \
 		test_smoke.py

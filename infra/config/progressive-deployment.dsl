@@ -14,7 +14,7 @@ DSL = """pipeline {
     }
     stage('smoke-test') {
       steps {
-        echo 'TBD'
+        build 'smoke-test'
       }
     }
     stage('deployment') {

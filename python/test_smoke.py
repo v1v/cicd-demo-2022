@@ -2,9 +2,9 @@ import time
 import os
 import urllib.request
 
-   
+
 def test_default():
-    url = os.getenv("HELLO_WORLD_URL")
+    url = os.getenv("SMOKE_TEST_URL")
     req = urllib.request.Request(url)
     with urllib.request.urlopen(req) as response:
        the_page = response.read().decode("utf8")
@@ -12,7 +12,7 @@ def test_default():
     pass
 
 def test_name():
-    url = os.getenv("HELLO_WORLD_URL")
+    url = os.getenv("SMOKE_TEST_URL")
     req = urllib.request.Request("{}?name=foo".format(url))
     with urllib.request.urlopen(req) as response:
        the_page = response.read().decode("utf8")
