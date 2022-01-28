@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   vars:
-    default_container_name: anti-fraud
+    default_container_name: anti-fraud-01
     default_container_image: docker.io/v1v1v/anti-fraud:latest
 
   tasks:
@@ -25,4 +25,7 @@
         state: started
         ports:
           - "28080:8080"
+        networks:
+          - name: infra_default
+
 # TODO: healtcheck with APM
