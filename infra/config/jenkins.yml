@@ -52,6 +52,11 @@ credentials:
               password: ${docker_token}
               scope: GLOBAL
               username: ${docker_user}
+          - string:
+              description: snyk.io token.
+              id: snyk.io
+              scope: GLOBAL
+              secret: ${snyk}
 
 jobs:
   - file: "/var/jenkins_home/config/ansible.dsl"
