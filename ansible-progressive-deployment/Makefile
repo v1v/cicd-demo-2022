@@ -62,3 +62,8 @@ run-with-otel:
 	OTEL_EXPORTER_OTLP_INSECURE=$(OTEL_EXPORTER_OTLP_INSECURE) \
 	OTEL_EXPORTER_OTLP_ENDPOINT=$(OTEL_EXPORTER_OTLP_ENDPOINT) \
 	ansible-playbook progressive-deployment.yml --extra-vars "default_container_image=$(DOCKER_IMAGE):$(DOCKER_IMAGE_VERSION)"
+
+.PHONY: demo
+demo:
+	source $(VENV)/bin/activate;\
+		ansible-playbook demo.yml
