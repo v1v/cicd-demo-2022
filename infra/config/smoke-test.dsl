@@ -6,7 +6,6 @@ DSL = """pipeline {
     HOST_TEST_URL = "http://localhost:28080"
     SMOKE_TEST_URL = "\${env.HOST_TEST_URL}/ecommerce"
     KIBANA_URL = "http://localhost:5601"
-    OTEL_SERVICE_NAME = "smoke-test"
   }
   stages {
     stage('checkout') {
@@ -17,8 +16,8 @@ DSL = """pipeline {
     stage('smoke-test') {
       steps {
         sh(label: 'Prepare venv', script: 'make -C python virtualenv')
-        sh(label: 'Run Python smoke tests', script: 'make -C python test')
-        sh(label: 'Run Python verification tests', script: 'make -C python test-error-rate')
+        sh(label: 'Run Python smoke tests', script: 'OTEL_SERVICE_NAME = "smoke-test" make -C python test')
+        sh(label: 'Run Python verification tests', script: 'OTEL_SERVICE_NAME = "error-rate-test" make -C python test-error-rate')
       }
     }
   }
