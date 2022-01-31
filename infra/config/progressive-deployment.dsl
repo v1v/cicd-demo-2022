@@ -44,6 +44,10 @@ DSL = """pipeline {
 }"""
 
 pipelineJob(NAME) {
+  parameters {
+    stringParam('PREVIOUS_VERSION', '0.0.1-SNAPSHOT', 'Current version')
+    stringParam('VERSION', '0.0.2-SNAPSHOT', 'Version to be deployed')
+  }
   definition {
     cps {
       script(DSL.stripIndent())

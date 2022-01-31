@@ -30,6 +30,9 @@ DSL = """pipeline {
 }"""
 
 pipelineJob(NAME) {
+  parameters {
+    stringParam('DOCKER_IMAGE_VERSION', 'latest', 'Version to be deployed')
+  }
   definition {
     cps {
       script(DSL.stripIndent())
