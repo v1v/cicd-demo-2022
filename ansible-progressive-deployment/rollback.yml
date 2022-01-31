@@ -1,0 +1,39 @@
+---
+- name: Deploy app
+  hosts: localhost
+  connection: local
+  vars:
+    default_container_name: anti-fraud-01
+    default_container_image: docker.io/v1v1v/anti-fraud:latest
+    port_container: 28080
+
+  tasks:
+    - name: Log into DockerHub
+      docker_login:
+        username: "{{ docker_user }}"
+        password: "{{ docker_password }}"
+        registry_url: https://index.docker.io/v1/
+
+    - name: Pull default Docker image
+      docker_image:
+        name: "{{ default_container_image }}"
+        source: pull
+
+    - name: Create default containers
+      docker_container:
+        name: "{{ default_container_name }}"
+        image: "{{ default_container_image }}"
+        state: started
+        ports:
+          - "{{ port_container }}:8080"
+        networks:
+          - name: infra_default
+
+    - name: Healtcheck URL is reachable from this host
+      uri:
+        url: "http://localhost:{{ port_container }}/healthcheck"
+      retries: 4
+      delay: 2
+      register: _result
+      until: _result.status == 200
+      ignore_errors: yes
