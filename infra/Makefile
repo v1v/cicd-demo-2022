@@ -9,6 +9,10 @@ export ELASTIC_STACK_VERSION?=7.16.2
 build:
 	@env docker-compose --file docker-compose.yml build
 
+.PHONY: demo
+demo:
+	@env $(MAKE) -C ../ansible-progressive-deployment demo
+
 .PHONY: start
 start:
 	@env \
