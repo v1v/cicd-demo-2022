@@ -4,7 +4,7 @@ DSL = """pipeline {
   environment {
     HOME = "\${env.WORKSPACE}"
     HOST_TEST_URL = "http://localhost:28080"
-    SMOKE_TEST_URL = "\${env.SMOKE_TEST_URL}/ecommerce"
+    SMOKE_TEST_URL = "\${env.HOST_TEST_URL}/ecommerce"
     KIBANA_URL = "http://localhost:5601"
     OTEL_SERVICE_NAME = "smoke-test"
   }
