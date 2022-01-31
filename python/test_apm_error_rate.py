@@ -40,6 +40,7 @@ def test_apm_error_rate():
        if obj["currentPeriod"]["frontend"]:
          if obj["currentPeriod"]["frontend"]["transactionErrorRate"]:
            for item in obj["currentPeriod"]["frontend"]["transactionErrorRate"]:
-             assert item.y == 0 or item.y == None
+             y = getattr(item, 'y')
+             assert  y == 0 or y == None
 
   pass
