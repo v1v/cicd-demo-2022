@@ -1,0 +1,16 @@
+---
+- name: Deploy app
+  hosts: localhost
+  connection: local
+  vars:
+    port_container: 28082
+
+  tasks:
+    - name: Healtcheck URL is reachable from this host
+      uri:
+        url: "http://localhost:{{ port_container }}/healthcheck"
+      retries: 4
+      delay: 2
+      register: _result
+      until: _result.status == 200
+      ignore_errors: yes

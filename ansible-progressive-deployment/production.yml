@@ -5,6 +5,7 @@
   vars:
     default_container_name: anti-fraud-02
     default_container_image: docker.io/v1v1v/anti-fraud:latest
+    port_container: 28081
 
   tasks:
     - name: Log into DockerHub
@@ -24,6 +25,6 @@
         image: "{{ default_container_image }}"
         state: started
         ports:
-          - "28081:8080"
+          - "{{ port_container }}:8080"
         networks:
           - name: infra_default

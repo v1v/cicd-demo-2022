@@ -41,6 +41,13 @@ production:
 			production.yml \
 			--extra-vars "default_container_image=$(DOCKER_IMAGE) docker_user=$(CONTAINER_REGISTRY_USERNAME) docker_password=$(CONTAINER_REGISTRY_PASSWORD)"
 
+.PHONY: healthcheck
+healthcheck:
+	source $(VENV)/bin/activate;\
+		ansible-playbook \
+			healthcheck.yml \
+			--extra-vars "default_container_image=$(DOCKER_IMAGE) docker_user=$(CONTAINER_REGISTRY_USERNAME) docker_password=$(CONTAINER_REGISTRY_PASSWORD)"
+
 .PHONY: run-with-otel
 run-with-otel:
 	source $(VENV)/bin/activate;\
