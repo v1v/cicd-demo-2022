@@ -1,6 +1,12 @@
 NAME = 'ansible-production'
 DSL = """pipeline {
   agent any
+  environment {
+    DOCKER_IMAGE_VERSION = "\${params.DOCKER_IMAGE_VERSION}"
+  }
+  parameters {
+    string(defaultValue: 'latest', name: 'DOCKER_IMAGE_VERSION')
+  }
   stages {
     stage('checkout') {
       steps {

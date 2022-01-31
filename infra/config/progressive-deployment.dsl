@@ -1,6 +1,10 @@
 NAME = 'progressive-deployment'
 DSL = """pipeline {
   agent none
+  parameters {
+    string(defaultValue: '0.0.1-SNAPSHOT', name: 'PREVIOUS_VERSION')
+    string(defaultValue: '0.0.2-SNAPSHOT', name: 'VERSION')
+  }
   stages {
     stage('ecommerce-antifraud') {
       steps {
@@ -9,17 +13,31 @@ DSL = """pipeline {
     }
     stage('progressive-deployment') {
       steps {
-        build 'ansible-progressive-deployment'
+        build(job: 'ansible-progressive-deployment',
+              parameters: [string(name: 'DOCKER_IMAGE_VERSION', value: params.VERSION)])
+      }
+      post {
+        unsuccessful {
+          build(job: 'ansible-rollback',
+                parameters: [string(name: 'DOCKER_IMAGE_VERSION', value: params.PREVIOUS_VERSION)])
+        }
       }
     }
     stage('smoke-test') {
       steps {
         build 'smoke-test'
       }
+      post {
+        unsuccessful {
+          build(job: 'ansible-rollback',
+                parameters: [string(name: 'DOCKER_IMAGE_VERSION', value: params.PREVIOUS_VERSION)])
+        }
+      }
     }
     stage('deployment') {
       steps {
-        build 'ansible-production'
+        build(job: 'ansible-production',
+              parameters: [string(name: 'DOCKER_IMAGE_VERSION', value: params.VERSION)])
       }
     }
   }

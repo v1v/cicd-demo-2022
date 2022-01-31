@@ -21,7 +21,7 @@ DSL = """pipeline {
                         usernameVariable: 'CONTAINER_REGISTRY_USERNAME')]) {
           dir('ansible-progressive-deployment') {
             sh(label: 'make prepare', script: 'make prepare')
-            sh(label: 'run ansible', script: 'make progressive-deployment')
+            sh(label: 'run ansible', script: 'make rollback')
           }
         }
       }
