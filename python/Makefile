@@ -7,7 +7,9 @@ OTEL_EXPORTER_OTLP_INSECURE ?= True
 OTEL_EXPORTER_OTLP_HEADERS ?=
 TRACEPARENT ?=
 
-SMOKE_TEST_URL ?= http://localhost:28080/hello
+HOST_TEST_URL ?= http://localhost:28080
+SMOKE_TEST_URL ?= $(HOST_TEST_URL)/hello
+KIBANA_URL ?= http://localhost:5601
 HELLO_WORLD_IMAGE ?= docker.io/elasticobservability/demo-fosdem:0.0.1-SNAPSHOT
 VENV ?= .venv
 PYTHON ?= python3
@@ -64,6 +66,17 @@ test: virtualenv
 		--otel-service-name $(OTEL_SERVICE_NAME) \
 		--junitxml $(CURDIR)/junit-smoke-tests.xml \
 		test_smoke.py
+
+## @help:test-error-rate:Run a test to validate there is no errors on the end point.
+.PHONY: test-error-rate
+test-error-rate: virtualenv
+	source $(VENV)/bin/activate;\
+	HOST_TEST_URL=$(HOST_TEST_URL) \
+	KIBANA_URL=$(KIBANA_URL) \
+	pytest --capture=no \
+		--otel-service-name $(OTEL_SERVICE_NAME) \
+		--junitxml $(CURDIR)/junit-error-rate-tests.xml \
+		test_apm_error_rate.py
 
 ## @help:clean:Remove Python file artifacts.
 .PHONY: clean
