@@ -24,6 +24,7 @@
         name: "{{ default_container_name }}"
         image: "{{ default_container_image }}"
         state: started
+        recreate: yes
         ports:
           - "{{ port_container }}:8080"
         networks:
