@@ -7,6 +7,18 @@ Progressive deployment with Ansible, Jenkins, Maven, Pytest and Elastic APM spec
 ```bash
 $ make -C infra demo
 ```
+
+## Configure /etc/hosts
+
+```
+127.0.0.1 maven.example.com
+127.0.0.1 jenkins
+127.0.0.1 kibana
+127.0.0.1 jaeger
+127.0.0.1 apm-server
+127.0.0.1 otel-collector
+```
+
 ## Spin up services
 
 ```bash
