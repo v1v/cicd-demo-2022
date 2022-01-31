@@ -1,4 +1,4 @@
-NAME = 'ansible-progressive-deployment'
+NAME = 'ansible-rollback'
 DSL = """pipeline {
   agent any
   environment {
