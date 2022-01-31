@@ -17,7 +17,7 @@ DSL = """pipeline {
       steps {
         sh(label: 'Prepare venv', script: 'make -C python virtualenv')
         sh(label: 'Run Python smoke tests', script: 'OTEL_SERVICE_NAME = "smoke-test" make -C python test')
-        sh(label: 'Run Python verification tests', script: 'OTEL_SERVICE_NAME = "error-rate-test" make -C python test-error-rate')
+        sh(label: 'Run Python verification tests', script: 'OTEL_SERVICE_NAME="error-rate-test" make -C python test-error-rate')
       }
     }
   }
