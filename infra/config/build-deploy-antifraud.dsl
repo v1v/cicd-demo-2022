@@ -43,7 +43,7 @@ DSL = """pipeline {
                           usernameVariable: 'CONTAINER_REGISTRY_USERNAME')]) {
             dir('ansible-progressive-deployment') {
               sh(label: 'make prepare', script: 'make prepare')
-              sh(label: 'run ansible', script: 'DOCKER_IMAGE_VERSION=\${params.PREVIOUS_VERSION} make rollback')
+              sh(label: 'run ansible', script: "DOCKER_IMAGE_VERSION=\${params.PREVIOUS_VERSION} make rollback")
             }
           }
         }
@@ -71,7 +71,7 @@ DSL = """pipeline {
                           usernameVariable: 'CONTAINER_REGISTRY_USERNAME')]) {
             dir('ansible-progressive-deployment') {
               sh(label: 'make prepare', script: 'make prepare')
-              sh(label: 'run ansible', script: 'DOCKER_IMAGE_VERSION=\${params.PREVIOUS_VERSION} make rollback')
+              sh(label: 'run ansible', script: "DOCKER_IMAGE_VERSION=\${params.PREVIOUS_VERSION} make rollback")
             }
           }
         }
