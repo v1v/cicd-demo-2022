@@ -66,9 +66,9 @@ credentials:
               secret: ${snyk}
 
 jobs:
-  - file: "/var/jenkins_home/config/ecommerce-antifraud.dsl"
-  - file: "/var/jenkins_home/config/ansible-production.dsl"
-  - file: "/var/jenkins_home/config/ansible-progressive-deployment.dsl"
-  - file: "/var/jenkins_home/config/ansible-rollback.dsl"
+  - file: "/var/jenkins_home/config/antifraud.dsl"
+  - file: "/var/jenkins_home/config/deploy-canary.dsl"
+  - file: "/var/jenkins_home/config/deploy-environment.dsl"
+  - file: "/var/jenkins_home/config/rollback.dsl"
   - file: "/var/jenkins_home/config/progressive-deployment.dsl"
-  - file: "/var/jenkins_home/config/smoke-test.dsl"
+  - file: "/var/jenkins_home/config/quality-gate.dsl"

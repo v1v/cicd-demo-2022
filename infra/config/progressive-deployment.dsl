@@ -8,35 +8,35 @@ DSL = """pipeline {
   stages {
     stage('Build') {
       steps {
-        build 'ecommerce-antifraud/main'
+        build 'antifraud/main'
       }
     }
     stage('Deploy canary') {
       steps {
-        build(job: 'ansible-progressive-deployment',
+        build(job: 'deploy-canary',
               parameters: [string(name: 'DOCKER_IMAGE_VERSION', value: params.VERSION)])
       }
       post {
         unsuccessful {
-          build(job: 'ansible-rollback',
+          build(job: 'rollback',
                 parameters: [string(name: 'DOCKER_IMAGE_VERSION', value: params.PREVIOUS_VERSION)])
         }
       }
     }
     stage('Quality Gate') {
       steps {
-        build 'smoke-test'
+        build 'quality-gate'
       }
       post {
         unsuccessful {
-          build(job: 'ansible-rollback',
+          build(job: 'rollback',
                 parameters: [string(name: 'DOCKER_IMAGE_VERSION', value: params.PREVIOUS_VERSION)])
         }
       }
     }
     stage('Deploy whole environment') {
       steps {
-        build(job: 'ansible-production',
+        build(job: 'deploy-environment',
               parameters: [string(name: 'DOCKER_IMAGE_VERSION', value: params.VERSION)])
       }
     }

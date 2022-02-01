@@ -1,4 +1,4 @@
-NAME = 'ecommerce-antifraud'
+NAME = 'antifraud'
 multibranchPipelineJob(NAME) {
   branchSources {
     factory {
