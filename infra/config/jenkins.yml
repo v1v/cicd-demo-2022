@@ -66,6 +66,7 @@ credentials:
               secret: ${snyk}
 
 jobs:
+  - file: "/var/jenkins_home/config/folder.dsl"
   - file: "/var/jenkins_home/config/antifraud.dsl"
   - file: "/var/jenkins_home/config/deploy-canary.dsl"
   - file: "/var/jenkins_home/config/deploy-environment.dsl"

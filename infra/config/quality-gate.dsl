@@ -1,4 +1,4 @@
-NAME = 'smoke-test'
+NAME = 'quality-gate'
 DSL = """pipeline {
   agent any
   environment {

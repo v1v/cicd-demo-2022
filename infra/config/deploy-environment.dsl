@@ -1,4 +1,4 @@
-NAME = 'ansible-production'
+NAME = 'deploy-environment'
 DSL = """pipeline {
   agent any
   environment {

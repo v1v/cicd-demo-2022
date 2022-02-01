@@ -1,4 +1,4 @@
-NAME = 'ansible-progressive-deployment'
+NAME = 'deploy-canary'
 DSL = """pipeline {
   agent any
   environment {

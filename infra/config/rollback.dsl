@@ -1,4 +1,4 @@
-NAME = 'ansible-rollback'
+NAME = 'rollback'
 DSL = """pipeline {
   agent any
   environment {
