@@ -30,10 +30,11 @@ unclassified:
     exportOtelConfigurationAsEnvironmentVariables: true  # Note that OpenTelemetry credentials, if configured, will be exposed as environment variables
     observabilityBackends:
     - elastic:
-        kibanaBaseUrl: "http://localhost:5601"
+        displayKibanaDashboardLink: true
+        kibanaBaseUrl: "http://kibana:5601"
         name: "Elastic Observability"
     - jaeger:
-        jaegerBaseUrl: "http://localhost:16686"
+        jaegerBaseUrl: "http://jaeger:16686"
         name: "Jaeger"
 
 credentials:
