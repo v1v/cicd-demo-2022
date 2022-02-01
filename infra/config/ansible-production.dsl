@@ -8,12 +8,12 @@ DSL = """pipeline {
     string(defaultValue: 'latest', name: 'DOCKER_IMAGE_VERSION')
   }
   stages {
-    stage('checkout') {
+    stage('Checkout') {
       steps {
         git(url: 'https://github.com/v1v/demo-fosdem-2022.git', branch: 'v2')
       }
     }
-    stage('run-ansible') {
+    stage('Deploy Production') {
       steps {
         withCredentials([usernamePassword(
                         credentialsId: 'docker.io',

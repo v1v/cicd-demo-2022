@@ -8,7 +8,7 @@ DSL = """pipeline {
     KIBANA_URL = "http://localhost:5601"
   }
   stages {
-    stage('checkout') {
+    stage('Checkout') {
       steps {
         git(url: 'https://github.com/v1v/demo-fosdem-2022.git', branch: 'v2')
       }
