@@ -1,4 +1,4 @@
-NAME = 'quality-gate'
+NAME = 'antifraud/quality-gate'
 DSL = """pipeline {
   agent any
   environment {

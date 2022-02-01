@@ -1,4 +1,4 @@
-NAME = 'progressive-deployment'
+NAME = 'antifraud/progressive-deployment'
 DSL = """pipeline {
   agent none
   parameters {
