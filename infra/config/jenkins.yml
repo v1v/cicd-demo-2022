@@ -65,10 +65,6 @@ credentials:
               secret: ${snyk}
 
 jobs:
-  - file: "/var/jenkins_home/config/ansible.dsl"
-  - file: "/var/jenkins_home/config/cd.dsl"
-  - file: "/var/jenkins_home/config/pytest.dsl"
-  - file: "/var/jenkins_home/config/java.dsl"
   - file: "/var/jenkins_home/config/ecommerce-antifraud.dsl"
   - file: "/var/jenkins_home/config/ansible-production.dsl"
   - file: "/var/jenkins_home/config/ansible-progressive-deployment.dsl"
