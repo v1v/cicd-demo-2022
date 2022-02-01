@@ -2,8 +2,8 @@
 
 DOCKER_IMAGE ?= docker.io/v1v1v/anti-fraud
 DOCKER_IMAGE_VERSION ?= latest
-CONTAINER_REGISTRY_USERNAME ?=
-CONTAINER_REGISTRY_PASSWORD ?=
+CONTAINER_REGISTRY_USR ?=
+CONTAINER_REGISTRY_PSW ?=
 OTEL_EXPORTER_OTLP_ENDPOINT ?= localhost:4317
 OTEL_EXPORTER_OTLP_INSECURE ?= true
 
@@ -33,28 +33,28 @@ progressive-deployment:
 	source $(VENV)/bin/activate;\
 		ansible-playbook \
 			progressive-deployment.yml \
-			--extra-vars "default_container_image=$(DOCKER_IMAGE):$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USERNAME) docker_password=$(CONTAINER_REGISTRY_PASSWORD)"
+			--extra-vars "default_container_image=$(DOCKER_IMAGE):$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
 
 .PHONY: production
 production:
 	source $(VENV)/bin/activate;\
 		ansible-playbook \
 			production.yml \
-			--extra-vars "default_container_image=$(DOCKER_IMAGE):$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USERNAME) docker_password=$(CONTAINER_REGISTRY_PASSWORD)"
+			--extra-vars "default_container_image=$(DOCKER_IMAGE):$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
 
 .PHONY: rollback
 rollback:
 	source $(VENV)/bin/activate;\
 		ansible-playbook \
 			rollback.yml \
-			--extra-vars "default_container_image=$(DOCKER_IMAGE):$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USERNAME) docker_password=$(CONTAINER_REGISTRY_PASSWORD)"
+			--extra-vars "default_container_image=$(DOCKER_IMAGE):$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
 
 .PHONY: healthcheck
 healthcheck:
 	source $(VENV)/bin/activate;\
 		ansible-playbook \
 			healthcheck.yml \
-			--extra-vars "default_container_image=$(DOCKER_IMAGE):$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USERNAME) docker_password=$(CONTAINER_REGISTRY_PASSWORD)"
+			--extra-vars "default_container_image=$(DOCKER_IMAGE):$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
 
 .PHONY: run-with-otel
 run-with-otel:

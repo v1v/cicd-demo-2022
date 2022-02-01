@@ -7,6 +7,7 @@ DSL = """pipeline {
     HOST_TEST_URL = "http://localhost:28080"
     SMOKE_TEST_URL = "\${env.HOST_TEST_URL}/ecommerce"
     KIBANA_URL = "http://localhost:5601"
+    CONTAINER_REGISTRY = credentials('docker.io')
   }
   parameters {
     string(defaultValue: '0.0.1-SNAPSHOT', name: 'PREVIOUS_VERSION')
@@ -25,26 +26,16 @@ DSL = """pipeline {
     }
     stage('Deploy Canary') {
       steps {
-        withCredentials([usernamePassword(
-                        credentialsId: 'docker.io',
-                        passwordVariable: 'CONTAINER_REGISTRY_PASSWORD',
-                        usernameVariable: 'CONTAINER_REGISTRY_USERNAME')]) {
-          dir('ansible-progressive-deployment') {
-            sh(label: 'make prepare', script: 'make prepare')
-            sh(label: 'run ansible', script: 'make progressive-deployment')
-          }
+        dir('ansible-progressive-deployment') {
+          sh(label: 'make prepare', script: 'make prepare')
+          sh(label: 'run ansible', script: 'make progressive-deployment')
         }
       }
       post {
         unsuccessful {
-          withCredentials([usernamePassword(
-                          credentialsId: 'docker.io',
-                          passwordVariable: 'CONTAINER_REGISTRY_PASSWORD',
-                          usernameVariable: 'CONTAINER_REGISTRY_USERNAME')]) {
-            dir('ansible-progressive-deployment') {
-              sh(label: 'make prepare', script: 'make prepare')
-              sh(label: 'run ansible', script: "DOCKER_IMAGE_VERSION=\${params.PREVIOUS_VERSION} make rollback")
-            }
+          dir('ansible-progressive-deployment') {
+            sh(label: 'make prepare', script: 'make prepare')
+            sh(label: 'run ansible', script: "DOCKER_IMAGE_VERSION=\${params.PREVIOUS_VERSION} make rollback")
           }
         }
       }
@@ -65,28 +56,18 @@ DSL = """pipeline {
       }
       post {
         unsuccessful {
-          withCredentials([usernamePassword(
-                          credentialsId: 'docker.io',
-                          passwordVariable: 'CONTAINER_REGISTRY_PASSWORD',
-                          usernameVariable: 'CONTAINER_REGISTRY_USERNAME')]) {
-            dir('ansible-progressive-deployment') {
-              sh(label: 'make prepare', script: 'make prepare')
-              sh(label: 'run ansible', script: "DOCKER_IMAGE_VERSION=\${params.PREVIOUS_VERSION} make rollback")
-            }
+          dir('ansible-progressive-deployment') {
+            sh(label: 'make prepare', script: 'make prepare')
+            sh(label: 'run ansible', script: "DOCKER_IMAGE_VERSION=\${params.PREVIOUS_VERSION} make rollback")
           }
         }
       }
     }
     stage('Deploy whole environment') {
       steps {
-        withCredentials([usernamePassword(
-                        credentialsId: 'docker.io',
-                        passwordVariable: 'CONTAINER_REGISTRY_PASSWORD',
-                        usernameVariable: 'CONTAINER_REGISTRY_USERNAME')]) {
-          dir('ansible-progressive-deployment') {
-            sh(label: 'make prepare', script: 'make prepare')
-            sh(label: 'run ansible', script: 'make production')
-          }
+        dir('ansible-progressive-deployment') {
+          sh(label: 'make prepare', script: 'make prepare')
+          sh(label: 'run ansible', script: 'make production')
         }
       }
     }

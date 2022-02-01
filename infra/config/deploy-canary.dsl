@@ -3,6 +3,7 @@ DSL = """pipeline {
   agent any
   environment {
     DOCKER_IMAGE_VERSION = "\${params.DOCKER_IMAGE_VERSION}"
+    CONTAINER_REGISTRY = credentials('docker.io')
   }
   parameters {
     string(defaultValue: 'latest', name: 'DOCKER_IMAGE_VERSION')
@@ -15,14 +16,9 @@ DSL = """pipeline {
     }
     stage('Deploy on Canary') {
       steps {
-        withCredentials([usernamePassword(
-                        credentialsId: 'docker.io',
-                        passwordVariable: 'CONTAINER_REGISTRY_PASSWORD',
-                        usernameVariable: 'CONTAINER_REGISTRY_USERNAME')]) {
-          dir('ansible-progressive-deployment') {
-            sh(label: 'make prepare', script: 'make prepare')
-            sh(label: 'run ansible', script: 'make progressive-deployment')
-          }
+        dir('ansible-progressive-deployment') {
+          sh(label: 'make prepare', script: 'make prepare')
+          sh(label: 'run ansible', script: 'make progressive-deployment')
         }
       }
     }
