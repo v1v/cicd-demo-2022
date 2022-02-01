@@ -30,6 +30,7 @@ DSL = """pipeline {
 }"""
 
 pipelineJob(NAME) {
+  displayName('Deploy canary')
   parameters {
     stringParam('DOCKER_IMAGE_VERSION', 'latest', 'Version to be deployed')
   }

@@ -13,10 +13,13 @@ DSL = """pipeline {
         git(url: 'https://github.com/v1v/demo-fosdem-2022.git', branch: 'v2')
       }
     }
-    stage('smoke-test') {
+    stage('Smoke Test') {
       steps {
         sh(label: 'Prepare venv', script: 'make -C python virtualenv')
-        sh(label: 'Run Python smoke tests', script: 'OTEL_SERVICE_NAME = "smoke-test" make -C python test')
+        sh(label: 'Run Python smoke tests', script: 'OTEL_SERVICE_NAME = "smoke-test" make -C python test')      }
+    }
+    stage('Check canary health with Elastic Observability') {
+      steps {
         sh(label: 'Run Python verification tests', script: 'OTEL_SERVICE_NAME="error-rate-test" make -C python test-error-rate')
       }
     }
@@ -24,6 +27,7 @@ DSL = """pipeline {
 }"""
 
 pipelineJob(NAME) {
+  displayName('Quality Gate')
   definition {
     cps {
       script(DSL.stripIndent())

@@ -6,12 +6,12 @@ DSL = """pipeline {
     string(defaultValue: '0.0.2-SNAPSHOT', name: 'VERSION')
   }
   stages {
-    stage('ecommerce-antifraud') {
+    stage('Build') {
       steps {
         build 'ecommerce-antifraud/main'
       }
     }
-    stage('progressive-deployment') {
+    stage('Deploy canary') {
       steps {
         build(job: 'ansible-progressive-deployment',
               parameters: [string(name: 'DOCKER_IMAGE_VERSION', value: params.VERSION)])
@@ -23,7 +23,7 @@ DSL = """pipeline {
         }
       }
     }
-    stage('smoke-test') {
+    stage('Quality Gate') {
       steps {
         build 'smoke-test'
       }
@@ -34,7 +34,7 @@ DSL = """pipeline {
         }
       }
     }
-    stage('deployment') {
+    stage('Deploy whole environment') {
       steps {
         build(job: 'ansible-production',
               parameters: [string(name: 'DOCKER_IMAGE_VERSION', value: params.VERSION)])
@@ -44,6 +44,7 @@ DSL = """pipeline {
 }"""
 
 pipelineJob(NAME) {
+  displayName('Build and Deploy AntiFraud')
   parameters {
     stringParam('PREVIOUS_VERSION', '0.0.1-SNAPSHOT', 'Current version')
     stringParam('VERSION', '0.0.2-SNAPSHOT', 'Version to be deployed')
