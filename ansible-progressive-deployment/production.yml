@@ -29,3 +29,11 @@
           - "{{ port_container }}:8080"
         networks:
           - name: infra_default
+
+    - name: Healtcheck URL is reachable from this host
+      uri:
+        url: "http://antifraud-02.example.com:{{ port_container }}/healthcheck"
+      retries: 4
+      delay: 2
+      register: _result
+      until: _result.status == 200

@@ -32,7 +32,7 @@
 
     - name: Healtcheck URL is reachable from this host
       uri:
-        url: "http://localhost:{{ port_container }}/healthcheck"
+        url: "http://antifraud-01.example.com:{{ port_container }}/healthcheck"
       retries: 4
       delay: 2
       register: _result

@@ -12,6 +12,8 @@ $ make -C infra demo
 
 ```
 127.0.0.1 maven.example.com
+127.0.0.1 antifraud-01.example.com
+127.0.0.1 antifraud-02.example.com
 127.0.0.1 jenkins
 127.0.0.1 kibana
 127.0.0.1 jaeger
