@@ -1,4 +1,4 @@
-NAME = 'antifraud/rollback'
+NAME = 'antifraud-v1/rollback'
 DSL = """pipeline {
   agent any
   environment {

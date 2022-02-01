@@ -1,4 +1,4 @@
-NAME = 'antifraud/deploy-environment'
+NAME = 'antifraud-v1/deploy-environment'
 DSL = """pipeline {
   agent any
   environment {

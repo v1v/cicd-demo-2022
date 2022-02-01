@@ -1,4 +1,4 @@
-NAME = 'antifraud/progressive-deployment'
+NAME = 'antifraud-v1/progressive-deployment'
 DSL = """pipeline {
   agent none
   parameters {
@@ -8,7 +8,7 @@ DSL = """pipeline {
   stages {
     stage('Build') {
       steps {
-        build 'antifraud/main'
+        build '../antifraud/main'
       }
     }
     stage('Deploy canary') {
