@@ -131,6 +131,16 @@ services:
     networks:
       - default
 
+  dashboard:
+    build: dashboard/
+    command: >-
+      -X POST http://kibana:5601/api/saved_objects/_import?overwrite=true -H "kbn-xsrf: true" --form file=@/tmp/jenkins-kibana-dashboards.ndjson
+    depends_on:
+      apm-server:
+        condition: service_healthy
+    networks:
+      - default
+
 volumes:
   jenkins:
     driver: local
