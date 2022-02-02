@@ -34,3 +34,19 @@
           - "28081:8080"
         networks:
           - name: infra_default
+
+    - name: Healtcheck URL is reachable from this host
+      uri:
+        url: "http://antifraud-01.example.com:28080/ecommerce"
+      retries: 5
+      delay: 2
+      register: _result
+      until: _result.status == 200
+
+    - name: Healtcheck URL is reachable from this host
+      uri:
+        url: "http://antifraud-02.example.com:28081/ecommerce"
+      retries: 5
+      delay: 2
+      register: _result
+      until: _result.status == 200
