@@ -6,10 +6,6 @@ receivers:
 exporters:
   logging:
     loglevel: debug
-  jaeger:
-    endpoint: jaeger-all-in-one:14250
-    tls:
-      insecure: true
 
   otlp/elastic:
     endpoint: "apm-server:8200"
@@ -32,7 +28,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging, jaeger, otlp/elastic]
+      exporters: [logging, otlp/elastic]
     metrics:
       receivers: [otlp]
       processors: [batch]

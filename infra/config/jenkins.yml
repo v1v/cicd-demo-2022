@@ -33,9 +33,6 @@ unclassified:
         displayKibanaDashboardLink: true
         kibanaBaseUrl: "http://kibana:5601"
         name: "Elastic Observability"
-    - jaeger:
-        jaegerBaseUrl: "http://jaeger:16686"
-        name: "Jaeger"
 
 credentials:
   system:

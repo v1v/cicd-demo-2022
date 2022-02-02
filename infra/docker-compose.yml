@@ -97,15 +97,6 @@ services:
       retries: 20
       test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://localhost:5601/api/status
 
-  jaeger-all-in-one:
-    image: jaegertracing/all-in-one:latest
-    ports:
-      - "16686:16686"
-      - "14268"
-      - "14250"
-    networks:
-      - default
-
   otel-collector:
     image: ${OTELCOL_IMG}
     command: ["--config=/etc/otel-collector-config.yaml", "${OTELCOL_ARGS}"]
@@ -117,7 +108,6 @@ services:
       - "4317:4317"   # OTLP gRPC receiver
       - "55670:55679" # zpages extension
     depends_on:
-      - jaeger-all-in-one
       - apm-server
     networks:
       - default

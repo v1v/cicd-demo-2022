@@ -6,7 +6,6 @@ The demo exposes the following backends:
 
 - Elastic at http://0.0.0.0:5601
 - Jenkins at http://0.0.0.0:8080
-- Jaeger at http://0.0.0.0:16686
 
 ## Context
 
