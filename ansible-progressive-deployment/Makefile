@@ -64,6 +64,6 @@ run-with-otel:
 	ansible-playbook progressive-deployment.yml --extra-vars "default_container_image=$(DOCKER_IMAGE):$(DOCKER_IMAGE_VERSION)"
 
 .PHONY: demo
-demo:
+demo: virtualenv
 	source $(VENV)/bin/activate;\
 		ansible-playbook demo.yml
