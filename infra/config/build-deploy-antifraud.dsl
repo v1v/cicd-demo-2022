@@ -40,27 +40,15 @@ DSL = """pipeline {
         }
       }
     }
-    stage('Quality Gate') {
-      stages {
-        stage('Smoke Test') {
-          steps {
-            sh(label: 'Prepare venv', script: 'make -C python virtualenv')
-            sh(label: 'Run Python smoke tests', script: 'OTEL_SERVICE_NAME="smoke-test" make -C python test')
-          }
-        }
-        stage('Check canary with Elastic') {
-          steps {
-            sh(label: 'Run Python verification tests', script: 'OTEL_SERVICE_NAME="error-rate-test" make -C python test-error-rate')
-          }
-        }
+    stage('Smoke Test') {
+      steps {
+        sh(label: 'Prepare venv', script: 'make -C python virtualenv')
+        sh(label: 'Run Python smoke tests', script: 'OTEL_SERVICE_NAME="smoke-test" make -C python test')
       }
-      post {
-        unsuccessful {
-          dir('ansible-progressive-deployment') {
-            sh(label: 'make prepare', script: 'make prepare')
-            sh(label: 'run ansible', script: "DOCKER_IMAGE_VERSION=\${params.PREVIOUS_VERSION} make rollback")
-          }
-        }
+    }
+    stage('Check canary with Elastic') {
+      steps {
+        sh(label: 'Run Python verification tests', script: 'OTEL_SERVICE_NAME="error-rate-test" make -C python test-error-rate')
       }
     }
     stage('Deploy whole environment') {
@@ -69,6 +57,14 @@ DSL = """pipeline {
           sh(label: 'make prepare', script: 'make prepare')
           sh(label: 'run ansible', script: 'make production')
         }
+      }
+    }
+  }
+  post {
+    unsuccessful {
+      dir('ansible-progressive-deployment') {
+        sh(label: 'make prepare', script: 'make prepare')
+        sh(label: 'run ansible', script: "DOCKER_IMAGE_VERSION=\${params.PREVIOUS_VERSION} make rollback")
       }
     }
   }
