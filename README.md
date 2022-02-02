@@ -26,7 +26,6 @@ $ make -C infra demo
 127.0.0.1 antifraud-02.example.com
 127.0.0.1 jenkins
 127.0.0.1 kibana
-127.0.0.1 jaeger
 127.0.0.1 apm-server
 127.0.0.1 otel-collector
 ```
