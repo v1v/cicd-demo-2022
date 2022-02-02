@@ -3,7 +3,7 @@
 VAULT_TOKEN ?= $(shell cat $${HOME}/.vault-token)
 VAULT_ADDR  ?= $(shell vault read -field=vault_addr secret/jcasc/localhost/base )
 export OTELCOL_IMG?=otel/opentelemetry-collector-contrib-dev:latest
-export ELASTIC_STACK_VERSION?=7.16.2
+export ELASTIC_STACK_VERSION?=7.17.0
 
 .PHONY: build
 build:
@@ -18,7 +18,7 @@ start:
 	@env \
 		VAULT_TOKEN=${VAULT_TOKEN} \
 		VAULT_ADDR=${VAULT_ADDR} \
-		docker-compose --file docker-compose.yml up --detach --no-recreate
+		docker-compose --file docker-compose.yml up --detach
 
 .PHONY: stop
 stop:
