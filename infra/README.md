@@ -15,14 +15,6 @@ This is an example of distributed tracing with Jenkins based on:
 - [JobDSL](https://github.com/jenkinsci/job-dsl-plugin/wiki) to configure the pipelines to test the steps.
 - [OpenTelemetry](https://github.com/jenkinsci/job-dsl-plugin/wiki) plugin to send traces :)
 
-## System Requirements
-
-- Docker >= 19.x.x (make sure you have greater than 2gb memory allocated to Docker)
-- Docker Compose >= 1.25.0
-- Java >= 8
-- *nix based (x86_64)
-- Vault for the credentials
-
 ## Run this
 
 1. Build docker image by running:

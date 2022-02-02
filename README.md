@@ -2,6 +2,16 @@
 
 Progressive deployment with Ansible, Jenkins, Maven, Pytest and Elastic APM specific.
 
+## System Requirements
+
+- Docker >= 19.x.x (make sure you have greater than 2gb memory allocated to Docker)
+- Docker Compose >= 1.25.0
+- Java >= 11
+- *nix based (x86_64)
+- Vault for the credentials
+- Python3
+- Virtualenv (pip3 install virtualenv)
+
 ## Prepare demo
 
 ```bash
@@ -27,13 +37,13 @@ $ make -C infra demo
 $ make -C infra start-all
 ```
 
+**NOTE**: The very first time is required to configure Nexus, please read infra/README.md
 ## Interact with the jobs
 
-Go to http://localhost:8080/job/progressive-deployment/
+Go to http://localhost:8080/job/antifraud/job/build-deploy-antifraud/build?delay=0sec
 
 and fill the right versions:
 
 * `0.0.1-SNAPSHOT` is initial version
 * `0.0.2-SNAPSHOT` is the version that works out of the box
 * `0.0.3-SNAPSHOT` is the version with some regresion.
-
