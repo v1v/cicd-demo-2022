@@ -4,7 +4,8 @@
   connection: local
   vars:
     default_container_name: antifraud-01
-    default_container_image: docker.io/v1v1v/anti-fraud:latest
+    default_container_image: docker.io/v1v1v/anti-fraud
+    version: 0.0.1-SNAPSHOT
     port_container: 28080
 
   tasks:
@@ -16,13 +17,13 @@
 
     - name: Pull default Docker image
       docker_image:
-        name: "{{ default_container_image }}"
+        name: "{{ default_container_image }}:{{ version }}"
         source: pull
 
     - name: Create default containers
       docker_container:
         name: "{{ default_container_name }}"
-        image: "{{ default_container_image }}"
+        image: "{{ default_container_image }}:{{ version }}"
         state: started
         recreate: yes
         ports:
@@ -38,3 +39,12 @@
       register: _result
       until: _result.status == 200
       ignore_errors: yes
+
+    - name: Update annotation {{ default_container_name }}
+      uri:
+        url: http://kibana:5601/api/apm/services/{{ default_container_name }}/annotation
+        method: POST
+        body_format: json
+        body: "{\"@timestamp\": \"{{ ansible_date_time.iso8601 }}\",\"service\": {\"version\": \"{{ version }}\"},\"message\": \"Rollback {{ version }}\"}"
+        headers:
+          kbn-xsrf: true

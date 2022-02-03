@@ -47,6 +47,6 @@
         url: http://kibana:5601/api/apm/services/{{ default_container_name }}/annotation
         method: POST
         body_format: json
-        body: "{\"@timestamp\": \"{{ ansible_date_time.iso8601 }}\",\"service\": {\"version\": \"{{ version }}\"},\"message\": \"Deployment {{ version }}\"}"
+        body: "{\"@timestamp\": \"{{ ansible_date_time.iso8601 }}\",\"service\": {\"version\": \"{{ version }}\"},\"message\": \"Canary Deployment {{ version }}\"}"
         headers:
           kbn-xsrf: true
