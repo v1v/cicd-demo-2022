@@ -71,3 +71,4 @@ jobs:
   - file: "/var/jenkins_home/config/progressive-deployment.dsl"
   - file: "/var/jenkins_home/config/quality-gate.dsl"
   - file: "/var/jenkins_home/config/build-deploy-antifraud.dsl"
+  - file: "/var/jenkins_home/config/generate-load.dsl"

@@ -8,8 +8,12 @@ DSL = """pipeline {
           for page in {1..20}
           do
             curl -s http://localhost:28080/ecommerce || true
-            sleep .$[ ( $RANDOM % 13 ) + 1 ]s
-            curl -s http://localhost:28080/ecommerce || true
+            sleep 1
+            curl -s http://localhost:28081/ecommerce || true
+            if docker ps | grep -q 'v1v1v/anti-fraud:0.0.2-SNAPSHOT' ; then
+              curl -s http://localhost:28080/healthcheck || true
+              curl -s http://localhost:28081/ecommerce || true
+            fi
           done
         ''')
       }
@@ -18,6 +22,9 @@ DSL = """pipeline {
 }"""
 
 pipelineJob(NAME) {
+  triggers {
+    cron('* * * * *')
+  }
   definition {
     cps {
       script(DSL.stripIndent())
