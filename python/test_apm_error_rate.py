@@ -27,7 +27,7 @@ def test_apm_error_rate():
     "end": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
     "kuery": "",
     "environment": "ENVIRONMENT_ALL",
-    "serviceNames": "[\"jenkins\", \"antifraud\"]",
+    "serviceNames": "[\"jenkins\", \"antifraud-01\"]",
     "offset": "1d"
   }
   host = os.getenv("KIBANA_URL")
@@ -37,9 +37,9 @@ def test_apm_error_rate():
      body = response.read().decode("utf8")
      obj = json.loads(body)
      if obj["currentPeriod"]:
-       if obj["currentPeriod"]["antifraud"]:
-         if obj["currentPeriod"]["antifraud"]["transactionErrorRate"]:
-           for item in obj["currentPeriod"]["antifraud"]["transactionErrorRate"]:
+       if obj["currentPeriod"]["antifraud-01"]:
+         if obj["currentPeriod"]["antifraud-01"]["transactionErrorRate"]:
+           for item in obj["currentPeriod"]["antifraud-01"]["transactionErrorRate"]:
              y = getattr(item, 'y', None)
              assert  y == 0 or y == None
 
