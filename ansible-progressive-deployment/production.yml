@@ -4,7 +4,7 @@
   connection: local
   vars:
     default_container_name: antifraud-02
-    default_container_image: docker.io/v1v1v/anti-fraud:latest
+    default_container_image: docker.io/v1v1v/anti-fraud
     version: 0.0.1-SNAPSHOT
     port_container: 28081
 
@@ -15,15 +15,15 @@
         password: "{{ docker_password }}"
         registry_url: https://index.docker.io/v1/
 
-    - name: Pull default Docker image
+    - name: Pull Docker image
       docker_image:
-        name: "{{ default_container_image }}"
+        name: "{{ default_container_image }}:{{ version }}"
         source: pull
 
-    - name: Create default containers
+    - name: Spin up antifraud service
       docker_container:
         name: "{{ default_container_name }}"
-        image: "{{ default_container_image }}"
+        image: "{{ default_container_image }}:{{ version }}"
         state: started
         recreate: yes
         ports:
@@ -31,7 +31,7 @@
         networks:
           - name: infra_default
         env:
-          OTEL_SERVICE_NAME: "antifraud-02"
+          OTEL_SERVICE_NAME: "{{ default_container_name }}"
 
     - name: Healtcheck
       uri:

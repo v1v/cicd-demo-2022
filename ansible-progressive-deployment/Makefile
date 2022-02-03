@@ -33,35 +33,35 @@ progressive-deployment:
 	source $(VENV)/bin/activate;\
 		ansible-playbook \
 			progressive-deployment.yml \
-			--extra-vars "default_container_image=$(DOCKER_IMAGE):$(DOCKER_IMAGE_VERSION) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
+			--extra-vars "default_container_image=$(DOCKER_IMAGE) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
 
 .PHONY: production
 production:
 	source $(VENV)/bin/activate;\
 		ansible-playbook \
 			production.yml \
-			--extra-vars "default_container_image=$(DOCKER_IMAGE):$(DOCKER_IMAGE_VERSION) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
+			--extra-vars "default_container_image=$(DOCKER_IMAGE) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
 
 .PHONY: rollback
 rollback:
 	source $(VENV)/bin/activate;\
 		ansible-playbook \
 			rollback.yml \
-			--extra-vars "default_container_image=$(DOCKER_IMAGE):$(DOCKER_IMAGE_VERSION) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
+			--extra-vars "default_container_image=$(DOCKER_IMAGE) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
 
 .PHONY: healthcheck
 healthcheck:
 	source $(VENV)/bin/activate;\
 		ansible-playbook \
 			healthcheck.yml \
-			--extra-vars "default_container_image=$(DOCKER_IMAGE):$(DOCKER_IMAGE_VERSION) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
+			--extra-vars "default_container_image=$(DOCKER_IMAGE) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
 
 .PHONY: run-with-otel
 run-with-otel:
 	source $(VENV)/bin/activate;\
 	OTEL_EXPORTER_OTLP_INSECURE=$(OTEL_EXPORTER_OTLP_INSECURE) \
 	OTEL_EXPORTER_OTLP_ENDPOINT=$(OTEL_EXPORTER_OTLP_ENDPOINT) \
-	ansible-playbook progressive-deployment.yml --extra-vars "default_container_image=$(DOCKER_IMAGE):$(DOCKER_IMAGE_VERSION)"
+	ansible-playbook progressive-deployment.yml --extra-vars "default_container_image=$(DOCKER_IMAGE) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
 
 .PHONY: demo
 demo: virtualenv
