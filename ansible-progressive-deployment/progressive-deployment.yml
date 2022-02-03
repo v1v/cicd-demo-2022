@@ -5,6 +5,7 @@
   vars:
     default_container_name: anti-fraud-01
     default_container_image: docker.io/v1v1v/anti-fraud:latest
+    version: 0.0.1-SNAPSHOT
     port_container: 28080
 
   tasks:
@@ -29,8 +30,10 @@
           - "{{ port_container }}:8080"
         networks:
           - name: infra_default
+        env:
+          OTEL_SERVICE_NAME: "antifraud-01"
 
-    - name: Healtcheck URL is reachable from this host
+    - name: Healtcheck
       uri:
         url: "http://antifraud-01.example.com:28080/healthcheck"
       retries: 4
@@ -38,3 +41,12 @@
       register: _result
       until: _result.status == 200
       ignore_errors: yes
+
+    - name: Update annotation {{ default_container_name }}
+      uri:
+        url: http://kibana:5601/api/apm/services/{{ default_container_name }}/annotation
+        method: POST
+        body_format: json
+        body: "{\"@timestamp\": \"{{ ansible_date_time.iso8601 }}\",\"service\": {\"version\": {{ version }}},\"message\": \"Deployment {{ version }}\"}"
+        headers:
+          kbn-xsrf: true
