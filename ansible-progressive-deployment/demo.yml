@@ -3,50 +3,50 @@
   hosts: localhost
   connection: local
   vars:
-    default_container_name: anti-fraud-01
-    default_container_image: docker.io/v1v1v/anti-fraud:0.0.1-SNAPSHOT
-    port_container: 28080
+    default_container_image: docker.io/v1v1v/anti-fraud
+    version: 0.0.1-SNAPSHOT
 
   tasks:
-    - name: Pull default Docker image
+    - name: Pull Docker image
       docker_image:
-        name: "{{ default_container_image }}"
+        name: "{{ default_container_image }}:{{ version }}"
         source: pull
 
-    - name: Create default container 01
+    - name: Spin up antifraud services
       docker_container:
-        name: "anti-fraud-01"
-        image: "{{ default_container_image }}"
+        name: "{{ item.name }}"
+        image: "{{ default_container_image }}:{{ version }}"
         state: started
         recreate: yes
         ports:
-          - "28080:8080"
+          - "{{ item.port }}:8080"
         networks:
           - name: infra_default
+        env:
+          OTEL_SERVICE_NAME: "{{ item.name }}"
+      loop:
+        - { name: "antifraud-01", port: '28080' }
+        - { name: "antifraud-02", port: '28081' }
 
-    - name: Create default container 02
-      docker_container:
-        name: "anti-fraud-02"
-        image: "{{ default_container_image }}"
-        state: started
-        recreate: yes
-        ports:
-          - "28081:8080"
-        networks:
-          - name: infra_default
-
-    - name: Healtcheck URL is reachable from this host
+    - name: Healtcheck URL
       uri:
-        url: "http://antifraud-01.example.com:28080/ecommerce"
+        url: "http://{{ item.name }}.example.com:{{ item.port }}/ecommerce"
       retries: 5
       delay: 2
       register: _result
       until: _result.status == 200
+      loop:
+        - { name: "antifraud-01", port: '28080' }
+        - { name: "antifraud-02", port: '28081' }
 
-    - name: Healtcheck URL is reachable from this host
+    - name: Update annotation
       uri:
-        url: "http://antifraud-02.example.com:28081/ecommerce"
-      retries: 5
-      delay: 2
-      register: _result
-      until: _result.status == 200
+        url: "http://kibana:5601/api/apm/services/{{ item.name }}/annotation"
+        method: POST
+        body_format: json
+        body: "{\"@timestamp\": \"{{ ansible_date_time.iso8601 }}\",\"service\": {\"version\": \"{{ version }}\"},\"message\": \"Deployment {{ version }}\"}"
+        headers:
+          kbn-xsrf: true
+      loop:
+        - { name: "antifraud-01", port: '28080' }
+        - { name: "antifraud-02", port: '28081' }
