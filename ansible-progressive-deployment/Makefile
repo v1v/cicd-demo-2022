@@ -39,7 +39,7 @@ progressive-deployment:
 production:
 	source $(VENV)/bin/activate;\
 		ansible-playbook \
-			production.yml \
+			deploy-full-environment.yml \
 			--extra-vars "default_container_image=$(DOCKER_IMAGE) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
 
 .PHONY: rollback
