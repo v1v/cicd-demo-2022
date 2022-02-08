@@ -67,15 +67,15 @@ test: virtualenv
 		--junitxml $(CURDIR)/junit-smoke-tests.xml \
 		test_smoke.py
 
-## @help:test-error-rate:Run a test to validate there is no errors on the end point.
-.PHONY: test-error-rate
-test-error-rate: virtualenv
+## @help:canary-health-check-with-elastic:Run a test to validate there is no errors on the end point.
+.PHONY: canary-health-check-with-elastic
+canary-health-check-with-elastic: virtualenv
 	source $(VENV)/bin/activate;\
 	HOST_TEST_URL=$(HOST_TEST_URL) \
 	KIBANA_URL=$(KIBANA_URL) \
 	pytest --capture=no \
 		--otel-service-name $(OTEL_SERVICE_NAME) \
-		--junitxml $(CURDIR)/junit-error-rate-tests.xml \
+		--junitxml $(CURDIR)/junit-canary-health-check-with-elastic.xml \
 		test_apm_error_rate.py
 
 ## @help:clean:Remove Python file artifacts.

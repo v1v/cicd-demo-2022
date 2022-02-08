@@ -42,13 +42,13 @@ DSL = """pipeline {
     }
     stage('Smoke Test') {
       steps {
-        sh(label: 'Prepare venv', script: 'make -C python virtualenv')
-        sh(label: 'Run Python smoke tests', script: 'OTEL_SERVICE_NAME="smoke-test" make -C python test')
       }
     }
     stage('Check canary with Elastic') {
       steps {
-        sh(label: 'Run Python verification tests', script: 'OTEL_SERVICE_NAME="error-rate-test" make -C python test-error-rate')
+        sh(label: 'Prepare venv', script: 'make -C python virtualenv')
+        sh(label: 'Run Python smoke tests', script: 'OTEL_SERVICE_NAME="smoke-test" make -C python test || true')
+        sh(label: 'Run Python verification tests', script: 'OTEL_SERVICE_NAME="canary-health-check-with-elastic" make -C python canary-health-check-with-elastic')
       }
     }
     stage('Deploy full environment') {
