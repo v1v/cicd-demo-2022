@@ -40,6 +40,8 @@ This is an example of distributed tracing with Jenkins based on:
 5. Browse to http://localhost:8081/#admin/security/users:anonymous and grant `nx-admin` permissions (save)
 
 
+6. Browse to http://kibana:5601/ and enable trial license.
+
 ## Further details
 
 It uses the OpenTelemetry Collector to send traces and metrics to different vendors, see https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/examples/demo

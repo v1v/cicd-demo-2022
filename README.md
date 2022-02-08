@@ -12,12 +12,6 @@ Progressive deployment with Ansible, Jenkins, Maven, Pytest and Elastic APM spec
 - Python3
 - Virtualenv (pip3 install virtualenv)
 
-## Prepare demo
-
-```bash
-$ make -C infra demo
-```
-
 ## Configure /etc/hosts
 
 ```
@@ -37,6 +31,13 @@ $ make -C infra start-all
 ```
 
 **NOTE**: The very first time is required to configure Nexus, please read infra/README.md
+
+## Prepare demo
+
+```bash
+$ make -C infra demo
+```
+
 ## Interact with the jobs
 
 Go to http://localhost:8080/job/antifraud/job/build-deploy-antifraud/build?delay=0sec
