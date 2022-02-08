@@ -40,10 +40,6 @@ DSL = """pipeline {
         }
       }
     }
-    stage('Smoke Test') {
-      steps {
-      }
-    }
     stage('Check canary with Elastic') {
       steps {
         sh(label: 'Prepare venv', script: 'make -C python virtualenv')
