@@ -16,7 +16,6 @@ DSL = """pipeline {
     stage('Check canary with Elastic') {
       steps {
         sh(label: 'Prepare venv', script: 'make -C python virtualenv')
-        sh(label: 'Run Python smoke tests', script: 'OTEL_SERVICE_NAME="smoke-test" make -C python test || true')
         sh(label: 'Run Python verification tests', script: 'OTEL_SERVICE_NAME="canary-health-check-with-elastic" make -C python canary-health-check-with-elastic')
       }
     }
