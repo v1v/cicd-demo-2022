@@ -34,7 +34,7 @@ DSL = """pipeline {
         }
       }
     }
-    stage('Deploy whole environment') {
+    stage('Deploy full environment') {
       steps {
         build(job: 'deploy-environment',
               parameters: [string(name: 'DOCKER_IMAGE_VERSION', value: params.VERSION)])

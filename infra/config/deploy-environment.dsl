@@ -26,7 +26,7 @@ DSL = """pipeline {
 }"""
 
 pipelineJob(NAME) {
-  displayName('Deploy whole environment')
+  displayName('Deploy full environment')
   parameters {
     stringParam('DOCKER_IMAGE_VERSION', 'latest', 'Version to be deployed')
   }
