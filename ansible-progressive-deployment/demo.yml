@@ -31,8 +31,8 @@
     - name: Healtcheck URL
       uri:
         url: "http://{{ item.name }}.example.com:{{ item.port }}/ecommerce"
-      retries: 5
-      delay: 2
+      retries: 6
+      delay: 3
       register: _result
       until: _result.status == 200
       loop:

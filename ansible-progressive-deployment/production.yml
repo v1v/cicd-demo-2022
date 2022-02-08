@@ -36,8 +36,8 @@
     - name: Healtcheck
       uri:
         url: "http://antifraud-02.example.com:28081/healthcheck"
-      retries: 4
-      delay: 2
+      retries: 5
+      delay: 3
       register: _result
       until: _result.status == 200
 
