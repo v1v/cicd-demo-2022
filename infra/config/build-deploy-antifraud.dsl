@@ -28,7 +28,7 @@ DSL = """pipeline {
       steps {
         dir('ansible-progressive-deployment') {
           sh(label: 'make prepare', script: 'make prepare')
-          sh(label: 'run ansible', script: 'make progressive-deployment')
+          sh(label: 'run ansible', script: 'make deploy-canary')
         }
       }
       post {
@@ -51,11 +51,11 @@ DSL = """pipeline {
         sh(label: 'Run Python verification tests', script: 'OTEL_SERVICE_NAME="error-rate-test" make -C python test-error-rate')
       }
     }
-    stage('Deploy whole environment') {
+    stage('Deploy full environment') {
       steps {
         dir('ansible-progressive-deployment') {
           sh(label: 'make prepare', script: 'make prepare')
-          sh(label: 'run ansible', script: 'make production')
+          sh(label: 'run ansible', script: 'make deploy-full-environment')
         }
       }
     }

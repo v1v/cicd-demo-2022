@@ -28,15 +28,15 @@ prepare: virtualenv
 	mkdir -p callback_plugins
 	curl -s https://raw.githubusercontent.com/ansible-collections/community.general/af15b205158143cc6da494aab3e16e0a5eef92df/plugins/callback/opentelemetry.py > callback_plugins/opentelemetry.py
 
-.PHONY: progressive-deployment
-progressive-deployment:
+.PHONY: deploy-canary
+deploy-canary:
 	source $(VENV)/bin/activate;\
 		ansible-playbook \
 			deploy-canary.yml \
 			--extra-vars "default_container_image=$(DOCKER_IMAGE) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
 
-.PHONY: production
-production:
+.PHONY: deploy-full-environment
+deploy-full-environment:
 	source $(VENV)/bin/activate;\
 		ansible-playbook \
 			deploy-full-environment.yml \

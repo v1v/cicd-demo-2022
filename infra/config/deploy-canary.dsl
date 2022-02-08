@@ -18,7 +18,7 @@ DSL = """pipeline {
       steps {
         dir('ansible-progressive-deployment') {
           sh(label: 'make prepare', script: 'make prepare')
-          sh(label: 'run ansible', script: 'make progressive-deployment')
+          sh(label: 'run ansible', script: 'make deploy-canary')
         }
       }
     }
