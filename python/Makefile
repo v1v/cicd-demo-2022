@@ -76,7 +76,7 @@ canary-health-check-with-elastic: virtualenv
 	pytest --capture=no \
 		--otel-service-name $(OTEL_SERVICE_NAME) \
 		--junitxml $(CURDIR)/junit-canary-health-check-with-elastic.xml \
-		test_apm_error_rate.py
+		test_canary_health_check_with_elastic.py
 
 ## @help:clean:Remove Python file artifacts.
 .PHONY: clean

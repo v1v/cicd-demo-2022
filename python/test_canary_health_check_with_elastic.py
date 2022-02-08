@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import json
 
 
-def test_apm_error_rate():
+def test_canary_health_check_with_elastic():
   main_url = os.getenv("HOST_TEST_URL")
   for i in range(10):
     req = urllib.request.Request("{}/ecommerce".format(main_url))
