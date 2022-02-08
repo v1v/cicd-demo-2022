@@ -32,7 +32,7 @@ prepare: virtualenv
 progressive-deployment:
 	source $(VENV)/bin/activate;\
 		ansible-playbook \
-			progressive-deployment.yml \
+			deploy-canary.yml \
 			--extra-vars "default_container_image=$(DOCKER_IMAGE) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
 
 .PHONY: production
