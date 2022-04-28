@@ -33,6 +33,10 @@ unclassified:
         displayKibanaDashboardLink: true
         kibanaBaseUrl: "http://kibana:5601"
         name: "Elastic Observability"
+        elasticLogsBackend:
+          elasticLogsBackendWithJenkinsVisualization:
+            elasticsearchCredentialsId: "elasticsearch-logs"
+            elasticsearchUrl: "http://elasticsearch:9200"
 
 credentials:
   system:
@@ -61,6 +65,12 @@ credentials:
               id: snyk.io
               scope: GLOBAL
               secret: ${snyk}
+          - usernamePassword:
+              description: "elasticsearch-logs"
+              id: "elasticsearch-logs"
+              password: "changeme"
+              scope: GLOBAL
+              username: "admin"
 
 jobs:
   - file: "/var/jenkins_home/config/folder.dsl"

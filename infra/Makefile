@@ -3,7 +3,7 @@
 VAULT_TOKEN ?= $(shell cat $${HOME}/.vault-token)
 VAULT_ADDR  ?= $(shell vault read -field=vault_addr secret/jcasc/localhost/base )
 export OTELCOL_IMG?=otel/opentelemetry-collector-contrib-dev:latest
-export ELASTIC_STACK_VERSION?=7.17.0
+export ELASTIC_STACK_VERSION?=8.1.3
 
 .PHONY: build
 build:
