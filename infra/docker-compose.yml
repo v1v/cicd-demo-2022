@@ -31,71 +31,34 @@ services:
     networks:
       - default
 
-  apm-server:
-    image: docker.elastic.co/apm/apm-server:${ELASTIC_STACK_VERSION:-8.1.3}
+  fleet-server:
+    extends:
+      file: ./elastic-stack/docker-compose.yml
+      service: fleet-server
+    networks:
+      - default
     depends_on:
       elasticsearch:
         condition: service_healthy
       kibana:
         condition: service_healthy
-    cap_add: ["CHOWN", "DAC_OVERRIDE", "SETGID", "SETUID"]
-    cap_drop: ["ALL"]
-    ports:
-      - 8200:8200
-    networks:
-      - default
-    command: >
-        apm-server -e
-        -E apm-server.rum.enabled=true
-        -E setup.kibana.host=kibana:5601
-        -E setup.template.settings.index.number_of_replicas=0
-        -E apm-server.kibana.enabled=true
-        -E apm-server.kibana.host=kibana:5601
-        -E output.elasticsearch.hosts=["elasticsearch:9200"]
-    healthcheck:
-      interval: 10s
-      retries: 20
-      test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://localhost:8200/
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_STACK_VERSION:-8.1.3}
-    environment:
-      - bootstrap.memory_lock=true
-      - cluster.name=docker-cluster
-      - cluster.routing.allocation.disk.threshold_enabled=false
-      - discovery.type=single-node
-      - ES_JAVA_OPTS=-Xms1g -Xmx1g
-    ulimits:
-      memlock:
-        hard: -1
-        soft: -1
-    volumes:
-      - esdata:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
+    extends:
+      file: ./elastic-stack/docker-compose.yml
+      service: elasticsearch
     networks:
       - default
-    healthcheck:
-      interval: 10s
-      retries: 20
-      test: curl -s http://localhost:9200/_cluster/health | grep -vq '"status":"red"'
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:${ELASTIC_STACK_VERSION:-8.1.3}
+    extends:
+      file: ./elastic-stack/docker-compose.yml
+      service: kibana
+    networks:
+      - default
     depends_on:
       elasticsearch:
         condition: service_healthy
-    environment:
-      ELASTICSEARCH_URL: http://elasticsearch:9200
-      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
-    ports:
-      - 5601:5601
-    networks:
-      - default
-    healthcheck:
-      interval: 10s
-      retries: 20
-      test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://localhost:5601/api/status
 
   otel-collector:
     image: ${OTELCOL_IMG}
@@ -108,7 +71,7 @@ services:
       - "4317:4317"   # OTLP gRPC receiver
       - "55670:55679" # zpages extension
     depends_on:
-      - apm-server
+      - fleet-server
     networks:
       - default
 
@@ -126,7 +89,7 @@ services:
     command: >-
       -X POST http://kibana:5601/api/saved_objects/_import?overwrite=true -H "kbn-xsrf: true" --form file=@/tmp/jenkins-kibana-dashboards.ndjson
     depends_on:
-      apm-server:
+      fleet-server:
         condition: service_healthy
     networks:
       - default
