@@ -35,7 +35,7 @@ unclassified:
         name: "Elastic Observability"
         elasticLogsBackend:
           elasticLogsBackendWithJenkinsVisualization:
-            elasticsearchCredentialsId: "elasticsearch-logs-creds"
+            elasticsearchCredentialsId: "elasticsearch-logs"
             elasticsearchUrl: "http://elasticsearch:9200"
 
 credentials:
