@@ -87,7 +87,7 @@ services:
   dashboard:
     build: dashboard/
     command: >-
-      -X POST http://kibana:5601/api/saved_objects/_import?overwrite=true -H "kbn-xsrf: true" --form file=@/tmp/jenkins-kibana-dashboards.ndjson
+      --user admin:changeme -X POST http://kibana:5601/api/saved_objects/_import?overwrite=true -H "kbn-xsrf: true" --form file=@/tmp/jenkins-kibana-dashboards.ndjson
     depends_on:
       fleet-server:
         condition: service_healthy
