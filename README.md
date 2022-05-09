@@ -37,6 +37,11 @@ $ make -C infra start-all
 $ make -C infra demo
 ```
 
+## Project
+
+https://github.com/v1v/ecommerce-antifraud
+
+
 ## Interact with the jobs
 
 Go to http://localhost:8080/job/antifraud/job/build-deploy-antifraud/build?delay=0sec

@@ -9,6 +9,7 @@ DSL = """pipeline {
     SMOKE_TEST_URL = "\${env.HOST_TEST_URL}/ecommerce"
     KIBANA_URL = "http://localhost:5601"
     CONTAINER_REGISTRY = credentials('docker.io')
+    KIBANA = credentials('elasticsearch-logs')
   }
   parameters {
     string(defaultValue: '0.0.1-SNAPSHOT', name: 'PREVIOUS_VERSION')
