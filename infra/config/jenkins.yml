@@ -75,10 +75,5 @@ credentials:
 jobs:
   - file: "/var/jenkins_home/config/folder.dsl"
   - file: "/var/jenkins_home/config/antifraud.dsl"
-  - file: "/var/jenkins_home/config/deploy-canary.dsl"
-  - file: "/var/jenkins_home/config/deploy-environment.dsl"
-  - file: "/var/jenkins_home/config/rollback.dsl"
-  - file: "/var/jenkins_home/config/progressive-deployment.dsl"
-  - file: "/var/jenkins_home/config/quality-gate.dsl"
   - file: "/var/jenkins_home/config/build-deploy-antifraud.dsl"
   - file: "/var/jenkins_home/config/generate-load.dsl"
