@@ -1,4 +1,4 @@
-NAME = 'antifraud/build-deploy-antifraud'
+NAME = 'antifraud/deploy-antifraud'
 DSL = """pipeline {
   agent any
   environment {
@@ -17,11 +17,6 @@ DSL = """pipeline {
     stage('Checkout') {
       steps {
         git(url: 'https://github.com/v1v/demo-fosdem-2022.git', branch: 'v3')
-      }
-    }
-    stage('Build') {
-      steps {
-        build 'antifraud/main'
       }
     }
     stage('Deploy Canary') {
@@ -66,7 +61,7 @@ DSL = """pipeline {
 }"""
 
 pipelineJob(NAME) {
-  displayName('Build - Deploy AntiFraud')
+  displayName('Deploy AntiFraud')
   parameters {
     stringParam('PREVIOUS_VERSION', '0.0.1-SNAPSHOT', 'Current version')
     stringParam('VERSION', '0.0.2-SNAPSHOT', 'Version to be deployed')
