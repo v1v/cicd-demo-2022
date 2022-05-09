@@ -76,4 +76,5 @@ jobs:
   - file: "/var/jenkins_home/config/folder.dsl"
   - file: "/var/jenkins_home/config/antifraud.dsl"
   - file: "/var/jenkins_home/config/build-deploy-antifraud.dsl"
+  - file: "/var/jenkins_home/config/deploy-antifraud.dsl"
   - file: "/var/jenkins_home/config/generate-load.dsl"

@@ -3,6 +3,7 @@ DSL = """pipeline {
   agent any
   environment {
     DOCKER_IMAGE_VERSION = "\${params.VERSION}"
+    PREVIOUS_VERSION = "\${params.PREVIOUS_VERSION}"
     HOME = "\${env.WORKSPACE}"
     HOST_TEST_URL = "http://localhost:28080"
     SMOKE_TEST_URL = "\${env.HOST_TEST_URL}/ecommerce"
@@ -26,14 +27,6 @@ DSL = """pipeline {
           sh(label: 'run ansible', script: 'make deploy-canary')
         }
       }
-      post {
-        unsuccessful {
-          dir('ansible-progressive-deployment') {
-            sh(label: 'make prepare', script: 'make prepare')
-            sh(label: 'run ansible', script: "DOCKER_IMAGE_VERSION=\${params.PREVIOUS_VERSION} make rollback")
-          }
-        }
-      }
     }
     stage('Check canary with Elastic') {
       steps {
@@ -54,7 +47,7 @@ DSL = """pipeline {
     unsuccessful {
       dir('ansible-progressive-deployment') {
         sh(label: 'make prepare', script: 'make prepare')
-        sh(label: 'run ansible', script: "DOCKER_IMAGE_VERSION=\${params.PREVIOUS_VERSION} make rollback")
+        sh(label: 'run ansible', script: "DOCKER_IMAGE_VERSION=\${env.PREVIOUS_VERSION} make rollback")
       }
     }
   }
