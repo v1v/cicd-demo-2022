@@ -49,6 +49,7 @@
           kbn-xsrf: true
         url_username: "{{ kibana_user }}"
         url_password: "{{ kibana_password }}"
+        force_basic_auth: true
       loop:
         - { name: "antifraud-01", port: '28080' }
         - { name: "antifraud-02", port: '28081' }
