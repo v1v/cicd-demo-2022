@@ -10,6 +10,8 @@ TRACEPARENT ?=
 HOST_TEST_URL ?= http://localhost:28080
 SMOKE_TEST_URL ?= $(HOST_TEST_URL)/hello
 KIBANA_URL ?= http://localhost:5601
+KIBANA_USR ?= admin
+KIBANA_PSW ?= admin
 HELLO_WORLD_IMAGE ?= docker.io/elasticobservability/demo-fosdem:0.0.1-SNAPSHOT
 VENV ?= .venv
 PYTHON ?= python3
@@ -73,6 +75,8 @@ canary-health-check-with-elastic: virtualenv
 	source $(VENV)/bin/activate;\
 	HOST_TEST_URL=$(HOST_TEST_URL) \
 	KIBANA_URL=$(KIBANA_URL) \
+	KIBANA_USR=$(KIBANA_USR) \
+	KIBANA_PSW=$(KIBANA_PSW) \
 	pytest --capture=no \
 		--otel-service-name $(OTEL_SERVICE_NAME) \
 		--junitxml $(CURDIR)/junit-canary-health-check-with-elastic.xml \
