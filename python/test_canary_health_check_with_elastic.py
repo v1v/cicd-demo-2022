@@ -34,10 +34,10 @@ def test_canary_health_check_with_elastic():
   host = os.getenv("KIBANA_URL")
   username = os.getenv("KIBANA_USR")
   password = os.getenv("KIBANA_PSW")
-  base64string = base64.b64encode('%s:%s' % (username, password))
   url = "{}/internal/apm/services/detailed_statistics?{}".format(host, urllib.parse.urlencode(params))
   req = urllib.request.Request(url)
-  req.add_header("Authorization", "Basic %s" % base64string)
+  base64string = base64.b64encode(bytes('%s:%s' % (username, password),'ascii'))
+  req.add_header("Authorization", "Basic %s" % base64string.decode('utf-8'))
   with urllib.request.urlopen(req) as response:
      body = response.read().decode("utf8")
      obj = json.loads(body)
