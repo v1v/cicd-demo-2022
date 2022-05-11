@@ -26,6 +26,7 @@
           OTEL_SERVICE_NAME: "{{ item.name }}"
           ELASTIC_APM_SERVICE_VERSION: "{{ version }}"
           ELASTIC_APM_ENVIRONMENT: 'production'
+          ELASTIC_APM_TRANSACTION_SAMPLE_RATE: "1"
       loop:
         - { name: "antifraud-01", port: '28080' }
         - { name: "antifraud-02", port: '28081' }

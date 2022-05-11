@@ -34,6 +34,7 @@
           OTEL_SERVICE_NAME: "{{ default_container_name }}"
           ELASTIC_APM_SERVICE_VERSION: "Rollback {{ version }}"
           ELASTIC_APM_ENVIRONMENT: 'production'
+          ELASTIC_APM_TRANSACTION_SAMPLE_RATE: "1"
 
     - name: Healtcheck URL is reachable from this host
       uri:
