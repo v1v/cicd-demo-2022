@@ -24,6 +24,7 @@
           - name: infra_default
         env:
           OTEL_SERVICE_NAME: "{{ item.name }}"
+          ELASTIC_APM_SERVICE_VERSION: "{{ version }}"
       loop:
         - { name: "antifraud-01", port: '28080' }
         - { name: "antifraud-02", port: '28081' }
@@ -35,21 +36,6 @@
       delay: 3
       register: _result
       until: _result.status == 200
-      loop:
-        - { name: "antifraud-01", port: '28080' }
-        - { name: "antifraud-02", port: '28081' }
-
-    - name: Update annotation
-      uri:
-        url: "http://kibana:5601/api/apm/services/{{ item.name }}/annotation"
-        method: POST
-        body_format: json
-        body: "{\"@timestamp\": \"{{ ansible_date_time.iso8601 }}\",\"service\": {\"version\": \"{{ version }}\"},\"message\": \"Deployment {{ version }}\"}"
-        headers:
-          kbn-xsrf: true
-        url_username: "{{ kibana_user }}"
-        url_password: "{{ kibana_password }}"
-        force_basic_auth: true
       loop:
         - { name: "antifraud-01", port: '28080' }
         - { name: "antifraud-02", port: '28081' }

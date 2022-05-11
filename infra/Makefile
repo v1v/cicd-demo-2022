@@ -13,6 +13,10 @@ build:
 demo:
 	@env $(MAKE) -C ../ansible-progressive-deployment demo
 
+.PHONY: annotation
+annotation:
+	@env $(MAKE) -C ../ansible-progressive-deployment annotation
+
 .PHONY: start
 start:
 	@env \

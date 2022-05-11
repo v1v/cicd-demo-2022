@@ -30,6 +30,9 @@
           - "{{ port_container }}:8080"
         networks:
           - name: infra_default
+        env:
+          OTEL_SERVICE_NAME: "{{ default_container_name }}"
+          ELASTIC_APM_SERVICE_VERSION: "Rollback {{ version }}"
 
     - name: Healtcheck URL is reachable from this host
       uri:
@@ -39,14 +42,3 @@
       register: _result
       until: _result.status == 200
       ignore_errors: yes
-
-    - name: Update annotation {{ default_container_name }}
-      uri:
-        url: http://kibana:5601/api/apm/services/{{ default_container_name }}/annotation
-        method: POST
-        body_format: json
-        body: "{\"@timestamp\": \"{{ ansible_date_time.iso8601 }}\",\"service\": {\"version\": \"{{ version }}\"},\"message\": \"Rollback {{ version }}\"}"
-        headers:
-          kbn-xsrf: true
-        url_username: "{{ kibana_user }}"
-        url_password: "{{ kibana_password }}"
