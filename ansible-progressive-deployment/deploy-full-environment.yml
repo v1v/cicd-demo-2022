@@ -43,7 +43,7 @@
 
     - name: Update annotation
       uri:
-        url: http://kibana:5601/api/apm/services/{{ default_container_name }}/annotation
+        url: http://kibana:5601/api/apm/services/{{ item.name }}/annotation
         method: POST
         body_format: json
         body: "{\"@timestamp\": \"{{ ansible_date_time.iso8601 }}\",\"service\": {\"version\": \"{{ version }}\"},\"message\": \"Deployment {{ version }}\"}"
@@ -51,3 +51,6 @@
           kbn-xsrf: true
         url_username: "{{ kibana_user }}"
         url_password: "{{ kibana_password }}"
+      loop:
+        - { name: "antifraud-01", port: '28080' }
+        - { name: "antifraud-02", port: '28081' }
