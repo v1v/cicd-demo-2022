@@ -9,6 +9,7 @@ jdk-tool
 job-dsl
 opentelemetry
 pipeline-model-definition
+pipeline-utility-steps
 swarm
 workflow-aggregator
 workflow-cps
