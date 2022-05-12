@@ -36,16 +36,30 @@
     - name: Healtcheck
       uri:
         url: "http://antifraud-02.example.com:28081/healthcheck"
-      retries: 5
-      delay: 3
+      retries: 10
+      delay: 5
       register: _result
       until: _result.status == 200
 
     - name: Update annotation
       uri:
-        url: http://kibana:5601/api/apm/services/{{ default_container_name }}/annotation
+        url: http://kibana:5601/api/apm/services/{{ item.name }}/annotation
         method: POST
         body_format: json
         body: "{\"@timestamp\": \"{{ ansible_date_time.iso8601 }}\",\"service\": {\"version\": \"{{ version }}\"},\"message\": \"Deployment {{ version }}\"}"
         headers:
           kbn-xsrf: true
+        force_basic_auth: true
+        url_username: "{{ kibana_user }}"
+        url_password: "{{ kibana_password }}"
+      loop:
+        - { name: "antifraud-01", port: '28080' }
+        - { name: "antifraud-02", port: '28081' }
+
+    - name: Healtcheck
+      uri:
+        url: "http://{{ item.name }}.example.com:{{ item.port }}/healthcheck"
+      retries: 5
+      loop:
+        - { name: "antifraud-01", port: '28080' }
+        - { name: "antifraud-02", port: '28081' }

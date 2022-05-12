@@ -3,6 +3,7 @@ DSL = """pipeline {
   agent any
   environment {
     DOCKER_IMAGE_VERSION = "\${params.VERSION}"
+    PREVIOUS_VERSION = "\${params.PREVIOUS_VERSION}"
     HOME = "\${env.WORKSPACE}"
     HOST_TEST_URL = "http://localhost:28080"
     SMOKE_TEST_URL = "\${env.HOST_TEST_URL}/ecommerce"
@@ -14,52 +15,18 @@ DSL = """pipeline {
     string(defaultValue: '0.0.2-SNAPSHOT', name: 'VERSION')
   }
   stages {
-    stage('Checkout') {
-      steps {
-        git(url: 'https://github.com/v1v/demo-fosdem-2022.git', branch: 'v2')
-      }
-    }
     stage('Build') {
       steps {
         build 'antifraud/main'
       }
     }
-    stage('Deploy Canary') {
+    stage('Deploy') {
       steps {
-        dir('ansible-progressive-deployment') {
-          sh(label: 'make prepare', script: 'make prepare')
-          sh(label: 'run ansible', script: 'make deploy-canary')
-        }
-      }
-      post {
-        unsuccessful {
-          dir('ansible-progressive-deployment') {
-            sh(label: 'make prepare', script: 'make prepare')
-            sh(label: 'run ansible', script: "DOCKER_IMAGE_VERSION=\${params.PREVIOUS_VERSION} make rollback")
-          }
-        }
-      }
-    }
-    stage('Check canary with Elastic') {
-      steps {
-        sh(label: 'Prepare venv', script: 'make -C python virtualenv')
-        sh(label: 'Run Python verification tests', script: 'OTEL_SERVICE_NAME="canary-health-check-with-elastic" make -C python canary-health-check-with-elastic')
-      }
-    }
-    stage('Deploy full environment') {
-      steps {
-        dir('ansible-progressive-deployment') {
-          sh(label: 'make prepare', script: 'make prepare')
-          sh(label: 'run ansible', script: 'make deploy-full-environment')
-        }
-      }
-    }
-  }
-  post {
-    unsuccessful {
-      dir('ansible-progressive-deployment') {
-        sh(label: 'make prepare', script: 'make prepare')
-        sh(label: 'run ansible', script: "DOCKER_IMAGE_VERSION=\${params.PREVIOUS_VERSION} make rollback")
+        build(job: 'antifraud/deploy-antifraud',
+              parameters: [
+                string(name: 'PREVIOUS_VERSION', value: env.PREVIOUS_VERSION)
+                string(name: 'VERSION', value: env.DOCKER_IMAGE_VERSION)
+              ])
       }
     }
   }

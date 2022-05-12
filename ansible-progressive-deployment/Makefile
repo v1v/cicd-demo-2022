@@ -4,6 +4,8 @@ DOCKER_IMAGE ?= docker.io/v1v1v/anti-fraud
 DOCKER_IMAGE_VERSION ?= latest
 CONTAINER_REGISTRY_USR ?=
 CONTAINER_REGISTRY_PSW ?=
+KIBANA_USR ?= admin
+KIBANA_PSW ?= changeme
 OTEL_EXPORTER_OTLP_ENDPOINT ?= localhost:4317
 OTEL_EXPORTER_OTLP_INSECURE ?= true
 
@@ -33,37 +35,37 @@ deploy-canary:
 	source $(VENV)/bin/activate;\
 		ansible-playbook \
 			deploy-canary.yml \
-			--extra-vars "default_container_image=$(DOCKER_IMAGE) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
+			--extra-vars "default_container_image=$(DOCKER_IMAGE) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW) kibana_user=$(KIBANA_USR) kibana_password=$(KIBANA_PSW)"
 
 .PHONY: deploy-full-environment
 deploy-full-environment:
 	source $(VENV)/bin/activate;\
 		ansible-playbook \
 			deploy-full-environment.yml \
-			--extra-vars "default_container_image=$(DOCKER_IMAGE) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
+			--extra-vars "default_container_image=$(DOCKER_IMAGE) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW) kibana_user=$(KIBANA_USR) kibana_password=$(KIBANA_PSW)"
 
 .PHONY: rollback
 rollback:
 	source $(VENV)/bin/activate;\
 		ansible-playbook \
 			rollback.yml \
-			--extra-vars "default_container_image=$(DOCKER_IMAGE) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
+			--extra-vars "default_container_image=$(DOCKER_IMAGE) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW) kibana_user=$(KIBANA_USR) kibana_password=$(KIBANA_PSW)"
 
 .PHONY: healthcheck
 healthcheck:
 	source $(VENV)/bin/activate;\
 		ansible-playbook \
 			healthcheck.yml \
-			--extra-vars "default_container_image=$(DOCKER_IMAGE) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
+			--extra-vars "default_container_image=$(DOCKER_IMAGE) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW) kibana_user=$(KIBANA_USR) kibana_password=$(KIBANA_PSW)"
 
 .PHONY: run-with-otel
 run-with-otel:
 	source $(VENV)/bin/activate;\
 	OTEL_EXPORTER_OTLP_INSECURE=$(OTEL_EXPORTER_OTLP_INSECURE) \
 	OTEL_EXPORTER_OTLP_ENDPOINT=$(OTEL_EXPORTER_OTLP_ENDPOINT) \
-	ansible-playbook progressive-deployment.yml --extra-vars "default_container_image=$(DOCKER_IMAGE) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW)"
+	ansible-playbook progressive-deployment.yml --extra-vars "default_container_image=$(DOCKER_IMAGE) version=$(DOCKER_IMAGE_VERSION) docker_user=$(CONTAINER_REGISTRY_USR) docker_password=$(CONTAINER_REGISTRY_PSW) kibana_user=$(KIBANA_USR) kibana_password=$(KIBANA_PSW)"
 
 .PHONY: demo
 demo: virtualenv
 	source $(VENV)/bin/activate;\
-		ansible-playbook demo.yml
+		ansible-playbook demo.yml --extra-vars "kibana_user=$(KIBANA_USR) kibana_password=$(KIBANA_PSW)"

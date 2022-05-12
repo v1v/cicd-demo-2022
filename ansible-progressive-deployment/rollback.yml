@@ -48,3 +48,6 @@
         body: "{\"@timestamp\": \"{{ ansible_date_time.iso8601 }}\",\"service\": {\"version\": \"{{ version }}\"},\"message\": \"Rollback {{ version }}\"}"
         headers:
           kbn-xsrf: true
+        force_basic_auth: true
+        url_username: "{{ kibana_user }}"
+        url_password: "{{ kibana_password }}"

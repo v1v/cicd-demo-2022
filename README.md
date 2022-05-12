@@ -16,8 +16,7 @@ Progressive deployment with Ansible, Jenkins, Maven, Pytest and Elastic APM spec
 
 ```
 127.0.0.1 maven.example.com
-127.0.0.1 antifraud-01.example.com
-127.0.0.1 antifraud-02.example.com
+127.0.0.1 antifraud-01.example.com antifraud-02.example.com
 127.0.0.1 jenkins
 127.0.0.1 kibana
 127.0.0.1 apm-server
@@ -38,6 +37,11 @@ $ make -C infra start-all
 $ make -C infra demo
 ```
 
+## Project
+
+https://github.com/v1v/ecommerce-antifraud
+
+
 ## Interact with the jobs
 
 Go to http://localhost:8080/job/antifraud/job/build-deploy-antifraud/build?delay=0sec
@@ -46,4 +50,5 @@ and fill the right versions:
 
 * `0.0.1-SNAPSHOT` is initial version
 * `0.0.2-SNAPSHOT` is the version that works out of the box
-* `0.0.3-SNAPSHOT` is the version with some regresion.
+* `0.0.3-SNAPSHOT` is the version that works out of the box
+* `0.0.4-SNAPSHOT` is the version with some regresion.
