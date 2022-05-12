@@ -54,3 +54,11 @@
       loop:
         - { name: "antifraud-01", port: '28080' }
         - { name: "antifraud-02", port: '28081' }
+
+    - name: Healtcheck
+      uri:
+        url: "http://{{ item.name }}.example.com:{{ item.port }}/healthcheck"
+      retries: 5
+      loop:
+        - { name: "antifraud-01", port: '28080' }
+        - { name: "antifraud-02", port: '28081' }
