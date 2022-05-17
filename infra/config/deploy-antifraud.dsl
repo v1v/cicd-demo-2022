@@ -12,13 +12,13 @@ DSL = """pipeline {
     KIBANA = credentials('elasticsearch-logs')
   }
   parameters {
-    string(defaultValue: '0.0.1-SNAPSHOT', name: 'PREVIOUS_VERSION')
-    string(defaultValue: '0.0.2-SNAPSHOT', name: 'VERSION')
+    string(defaultValue: '0.0.1', name: 'PREVIOUS_VERSION')
+    string(defaultValue: '0.0.2', name: 'VERSION')
   }
   stages {
     stage('Checkout') {
       steps {
-        git(url: 'https://github.com/v1v/demo-fosdem-2022.git', branch: 'v3')
+        git(url: 'https://github.com/v1v/cicd-demo-2022.git', branch: 'main')
       }
     }
     stage('Deploy Canary') {
@@ -57,8 +57,8 @@ DSL = """pipeline {
 pipelineJob(NAME) {
   displayName('Deploy AntiFraud')
   parameters {
-    stringParam('PREVIOUS_VERSION', '0.0.1-SNAPSHOT', 'Current version')
-    stringParam('VERSION', '0.0.2-SNAPSHOT', 'Version to be deployed')
+    stringParam('PREVIOUS_VERSION', '0.0.1', 'Current version')
+    stringParam('VERSION', '0.0.2', 'Version to be deployed')
   }
   definition {
     cps {
