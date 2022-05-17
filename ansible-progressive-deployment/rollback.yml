@@ -40,12 +40,12 @@
       until: _result.status == 200
       ignore_errors: yes
 
-    - name: Update annotation {{ default_container_name }}
+    - name: Update annotation
       uri:
-        url: http://kibana:5601/api/apm/services/{{ default_container_name }}/annotation
+        url: http://kibana:5601/api/apm/services/antifraud/annotation
         method: POST
         body_format: json
-        body: "{\"@timestamp\": \"{{ ansible_date_time.iso8601 }}\",\"service\": {\"version\": \"{{ version }}\"},\"message\": \"Rollback {{ version }}\"}"
+        body: "{\"@timestamp\": \"{{ ansible_date_time.iso8601 }}\",\"service\": {\"version\": \"{{ version }}\"},\"message\": \"Rollback {{ version }} antifraud-01\"}"
         headers:
           kbn-xsrf: true
         force_basic_auth: true
