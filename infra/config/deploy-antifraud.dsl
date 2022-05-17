@@ -18,7 +18,7 @@ DSL = """pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git(url: 'https://github.com/v1v/demo-fosdem-2022.git', branch: 'v3')
+        git(url: 'https://github.com/v1v/cicd-demo-2022.git', branch: 'main')
       }
     }
     stage('Deploy Canary') {
