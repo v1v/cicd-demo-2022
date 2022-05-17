@@ -11,8 +11,8 @@ DSL = """pipeline {
     CONTAINER_REGISTRY = credentials('docker.io')
   }
   parameters {
-    string(defaultValue: '0.0.1-SNAPSHOT', name: 'PREVIOUS_VERSION')
-    string(defaultValue: '0.0.2-SNAPSHOT', name: 'VERSION')
+    string(defaultValue: '0.0.1', name: 'PREVIOUS_VERSION')
+    string(defaultValue: '0.0.2', name: 'VERSION')
   }
   stages {
     stage('Build') {
@@ -35,8 +35,8 @@ DSL = """pipeline {
 pipelineJob(NAME) {
   displayName('Build - Deploy AntiFraud')
   parameters {
-    stringParam('PREVIOUS_VERSION', '0.0.1-SNAPSHOT', 'Current version')
-    stringParam('VERSION', '0.0.2-SNAPSHOT', 'Version to be deployed')
+    stringParam('PREVIOUS_VERSION', '0.0.1', 'Current version')
+    stringParam('VERSION', '0.0.2', 'Version to be deployed')
   }
   definition {
     cps {

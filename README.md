@@ -44,11 +44,10 @@ https://github.com/v1v/ecommerce-antifraud
 
 ## Interact with the jobs
 
-Go to http://localhost:8080/job/antifraud/job/build-deploy-antifraud/build?delay=0sec
+Go to http://localhost:8080/job/antifraud/job/deploy-antifraud/build?delay=0sec
 
 and fill the right versions:
 
-* `0.0.1-SNAPSHOT` is initial version
-* `0.0.2-SNAPSHOT` is the version that works out of the box
-* `0.0.3-SNAPSHOT` is the version that works out of the box
-* `0.0.4-SNAPSHOT` is the version with some regresion.
+* `0.0.1` is initial version
+* `0.0.2` is the version that works out of the box
+* `0.0.3` is the version with some regresion.

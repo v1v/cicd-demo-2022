@@ -4,7 +4,7 @@
   connection: local
   vars:
     default_container_image: docker.io/v1v1v/anti-fraud
-    version: 0.0.1-SNAPSHOT
+    version: "0.0.1"
 
   tasks:
     - name: Pull Docker image

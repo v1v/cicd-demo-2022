@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := run
 
-DOCKER_IMAGE ?= docker.io/elasticobservability/demo-fosdem:0.0.1-SNAPSHOT
+DOCKER_IMAGE ?= docker.io/elasticobservability/demo-fosdem:0.0.1
 OTEL_EXPORTER_OTLP_ENDPOINT ?= localhost:4317
 OTEL_EXPORTER_OTLP_INSECURE ?= true
 

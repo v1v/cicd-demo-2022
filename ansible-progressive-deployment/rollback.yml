@@ -5,7 +5,7 @@
   vars:
     default_container_name: antifraud-01
     default_container_image: docker.io/v1v1v/anti-fraud
-    version: 0.0.1-SNAPSHOT
+    version: "0.0.1"
     port_container: 28080
 
   tasks:
