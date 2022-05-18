@@ -51,3 +51,14 @@ and fill the right versions:
 * `0.0.1` is initial version
 * `0.0.2` is the version that works out of the box
 * `0.0.3` is the version with some regresion.
+
+
+## List docker containers
+
+```
+docker ps --filter 'name=antifraud' --format 'table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.Status}}\t{{.Label "org.opencontainers.image.version"}'
+```
+
+```
+watch docker ps --filter 'name=antifraud'
+```
