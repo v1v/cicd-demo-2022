@@ -18,10 +18,10 @@ jenkins:
             disabled: true
             failIfWorkDirIsMissing: false
             internalDir: "remoting"
-            workDirPath: "/tmp"
+            workDirPath: "/tmp/worker"
       name: "local"
       numExecutors: 3
-      remoteFS: "/tmp"
+      remoteFS: "/tmp/worker"
       retentionStrategy: "always"
 unclassified:
   openTelemetry:
