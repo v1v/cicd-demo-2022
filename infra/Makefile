@@ -28,6 +28,10 @@ stop:
 clean:
 	@env docker-compose --file docker-compose.yml down -v
 
+.PHONY: clean-all
+clean-all: clean
+	@rm -rf ~/.demo-worker || true
+
 .PHONY: start-all  ## Start everything locally
 start-all: start start-local-worker
 
@@ -36,6 +40,9 @@ stop-all: stop-local-worker stop
 
 .PHONY: start-local-worker
 start-local-worker:  ## Start the local worker
+	@echo 'prepare workspace for the worker'
+	@mkdir ~/.demo-worker || true
+	ln -fs ~/.demo-worker /tmp/worker
 	[ ! -e agent.jar ] && wget --quiet -O agent.jar http://localhost:8080/jnlpJars/agent.jar || true
 	{ nohup java -jar agent.jar -jnlpUrl http://localhost:8080/computer/local/slave-agent.jnlp > local.log 2>&1 & echo $$! > local.pid; }
 
