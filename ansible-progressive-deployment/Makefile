@@ -26,9 +26,9 @@ virtualenv:
 prepare: virtualenv
 	source $(VENV)/bin/activate;\
 		echo "ansible-galaxy collection install community.general"
-	echo "Use https://github.com/ansible-collections/community.general/pull/4104"
+	echo "Use https://github.com/ansible-collections/community.general/pull/4175"
 	mkdir -p callback_plugins
-	curl -s https://raw.githubusercontent.com/ansible-collections/community.general/af15b205158143cc6da494aab3e16e0a5eef92df/plugins/callback/opentelemetry.py > callback_plugins/opentelemetry.py
+	curl -s https://raw.githubusercontent.com/ansible-collections/community.general/843d04adf3c4814bf5ac0f4ff7ace24d74ff5e7e/plugins/callback/opentelemetry.py > callback_plugins/opentelemetry.py
 
 .PHONY: deploy-canary
 deploy-canary:
