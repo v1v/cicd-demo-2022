@@ -34,8 +34,8 @@
     - name: Healtcheck URL is reachable from this host
       uri:
         url: "http://localhost:{{ port_container }}/healthcheck"
-      retries: 6
-      delay: 3
+      retries: 30
+      delay: 1
       register: _result
       until: _result.status == 200
       ignore_errors: yes
