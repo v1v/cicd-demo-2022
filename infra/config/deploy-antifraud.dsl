@@ -1,5 +1,5 @@
 NAME = 'antifraud/deploy-antifraud'
-DSL = """pipeline {
+DSL = '''pipeline {
   agent any
   environment {
     DOCKER_IMAGE_VERSION = "\${params.VERSION}"
@@ -78,8 +78,7 @@ def notifyBuild(status) {
   ]
   slackSend(channel: "#deployments", blocks: blocks)
 }
-
-"""
+'''
 
 pipelineJob(NAME) {
   displayName('Deploy AntiFraud')

@@ -5,6 +5,10 @@ VAULT_ADDR  ?= $(shell vault read -field=vault_addr secret/jcasc/localhost/base 
 export OTELCOL_IMG?=otel/opentelemetry-collector-contrib-dev:latest
 export ELASTIC_STACK_VERSION?=8.1.3
 
+.PHONY: force-build
+force-build:
+	@env docker-compose --file docker-compose.yml build --no-cache
+
 .PHONY: build
 build:
 	@env docker-compose --file docker-compose.yml build
