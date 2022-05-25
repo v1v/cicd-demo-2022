@@ -10,6 +10,7 @@ job-dsl
 opentelemetry
 pipeline-model-definition
 pipeline-utility-steps
+slack
 swarm
 workflow-aggregator
 workflow-cps

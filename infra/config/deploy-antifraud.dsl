@@ -51,8 +51,35 @@ DSL = """pipeline {
         sh(label: 'run ansible', script: "DOCKER_IMAGE_VERSION=\${env.PREVIOUS_VERSION} make rollback")
       }
     }
+    failure {
+        notifyBuild('danger')
+    }
+    success {
+        notifyBuild('good')
+    }
   }
-}"""
+}
+
+def notifyBuild(status) {
+    def blocks =
+    [
+      [
+        "type": "section",
+        "text": [
+          "type": "mrkdwn",
+          "text": "The Ansible Deployment finished for version ${env.PREVIOUS_VERSION} with status `${currentBuild.result}`\n\n<${env.OTEL_ELASTIC_URL}|View traces in OpenTelemetry>"
+        ],
+      "accessory": [
+        "type": "image",
+        "image_url": "https://raw.githubusercontent.com/open-telemetry/opentelemetry.io/main/static/img/logos/opentelemetry-logo-nav.png",
+        "alt_text": "OpenTelemetry"
+      ]
+      ]
+  ]
+  slackSend(channel: "#deployments", blocks: blocks)
+}
+
+"""
 
 pipelineJob(NAME) {
   displayName('Deploy AntiFraud')
