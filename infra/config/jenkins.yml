@@ -37,6 +37,13 @@ unclassified:
           elasticLogsBackendWithJenkinsVisualization:
             elasticsearchCredentialsId: "elasticsearch-logs"
             elasticsearchUrl: "http://elasticsearch:9200"
+  slackNotifier:
+    botUser: true
+    room: "cicd"
+    sendAsText: false
+    slackUserIdResolver: "no"
+    teamDomain: "elastic"
+    tokenCredentialId: "slack"
 
 credentials:
   system:
@@ -65,6 +72,11 @@ credentials:
               id: snyk.io
               scope: GLOBAL
               secret: ${snyk}
+          - string:
+              description: slack bot token.
+              id: slack
+              scope: GLOBAL
+              secret: ${slack}
           - usernamePassword:
               description: "elasticsearch-logs"
               id: "elasticsearch-logs"
