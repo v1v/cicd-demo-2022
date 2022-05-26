@@ -24,7 +24,7 @@ DSL = """pipeline {
       steps {
         build(job: 'antifraud/deploy-antifraud',
               parameters: [
-                string(name: 'PREVIOUS_VERSION', value: env.PREVIOUS_VERSION)
+                string(name: 'PREVIOUS_VERSION', value: env.PREVIOUS_VERSION),
                 string(name: 'VERSION', value: env.DOCKER_IMAGE_VERSION)
               ])
       }
