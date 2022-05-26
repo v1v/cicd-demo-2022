@@ -34,7 +34,7 @@ This is an example of distributed tracing with Jenkins based on:
 4. Copy nexus credentials
 
   ```
-  docker exec -ti infra_nexus_1 cat nexus-data/admin.password
+  docker exec -ti infra-nexus-1 cat nexus-data/admin.password
   ```
 
 5. Browse to http://localhost:8081/#admin/security/users:anonymous and grant `nx-admin` permissions (save)
