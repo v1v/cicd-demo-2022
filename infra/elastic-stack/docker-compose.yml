@@ -8,7 +8,7 @@ networks:
 services:
     elasticsearch:
         environment:
-            - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+            - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
             - "network.host="
             - "transport.host=127.0.0.1"
             - "http.host=0.0.0.0"
