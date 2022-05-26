@@ -65,8 +65,8 @@ services:
             - "8200:8200"
         healthcheck:
             test: ["CMD-SHELL", "curl -s -k http://localhost:8220/api/status | grep -q 'HEALTHY'"]
-            retries: 300
-            interval: 1s
+            retries: 30
+            interval: 10s
         environment:
             FLEET_ELASTICSEARCH_HOST: "http://elasticsearch:9200"
             FLEET_SERVER_ENABLE: "1"
