@@ -3,6 +3,6 @@ agent.jar
 local.log
 local.pid
 .venv
-
+.vscode
 # ansible callback
 ansible-progressive-deployment/callback_plugins/opentelemetry.py
