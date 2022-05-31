@@ -77,6 +77,11 @@ credentials:
               id: slack
               scope: GLOBAL
               secret: ${slack}
+          - string:
+              description: github token.
+              id: github
+              scope: GLOBAL
+              secret: "ghp_1vtsSzBlFjbQm7cs21o3CloSHBzVyk1gU7ab"
           - usernamePassword:
               description: "elasticsearch-logs"
               id: "elasticsearch-logs"
