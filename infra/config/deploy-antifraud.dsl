@@ -67,7 +67,7 @@ def notifyBuild(status) {
         "type": "section",
         "text": [
           "type": "mrkdwn",
-          "text": "The Ansible Deployment finished for version ${env.PREVIOUS_VERSION} with status `${currentBuild.result}`\\n\\n<${env.OTEL_ELASTIC_URL}|View traces in OpenTelemetry>"
+          "text": "The Ansible Deployment finished for version ${env.VERSION} with status `${currentBuild.result}`\\n\\n<${env.OTEL_ELASTIC_URL}|View traces in OpenTelemetry>"
         ],
       "accessory": [
         "type": "image",
