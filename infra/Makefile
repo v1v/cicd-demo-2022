@@ -16,6 +16,7 @@ build:
 .PHONY: demo
 demo:
 	@env $(MAKE) -C ../ansible-progressive-deployment demo
+	@cd rules && ./create-slack-connector.sh
 
 .PHONY: start
 start:
