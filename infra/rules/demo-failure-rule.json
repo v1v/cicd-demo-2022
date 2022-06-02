@@ -37,7 +37,7 @@
       "group": "default",
       "id": "CONNECTOR_ID",
       "params": {
-        "message": "Rule {{context.rule.name}} generated {{state.signals_count}} alerts\n\n{{context.rule.query}}"
+        "message": "Rule {{context.rule.name}} generated {{state.signals_count}} alerts"
       },
       "action_type_id": ".slack"
     }
