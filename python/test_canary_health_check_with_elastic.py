@@ -28,7 +28,7 @@ def test_canary_health_check_with_elastic():
     "end": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
     "kuery": "",
     "environment": "ENVIRONMENT_ALL",
-    "serviceNames": "[\"jenkins\", \"antifraud-01\"]",
+    "serviceNames": "[\"antifraud-01\"]",
     "offset": "1d"
   }
   host = os.getenv("KIBANA_URL")
