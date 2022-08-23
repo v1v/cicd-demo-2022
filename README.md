@@ -15,7 +15,6 @@ Progressive deployment with Ansible, Jenkins, Maven, Pytest and Elastic APM spec
 ## Configure /etc/hosts
 
 ```
-127.0.0.1 maven.example.com
 127.0.0.1 antifraud-01.example.com antifraud-02.example.com
 127.0.0.1 jenkins
 127.0.0.1 kibana
@@ -29,8 +28,6 @@ Progressive deployment with Ansible, Jenkins, Maven, Pytest and Elastic APM spec
 $ make -C infra start-all
 ```
 
-**NOTE**: The very first time is required to configure Nexus, please read infra/README.md
-
 ## Prepare demo
 
 ```bash
@@ -39,7 +36,7 @@ $ make -C infra demo
 
 ## Project
 
-https://github.com/v1v/ecommerce-antifraud
+https://github.com/v1v/ecommerce-antifraud-demo
 
 
 ## Interact with the jobs
